@@ -1,0 +1,48 @@
+baseURL = 'http://example.org/'
+languageCode = 'en-us'
+title = 'Shepherd IT Sec'
+theme = 'barks'
+sectionPagesMenu = "main"
+
+
+
+
+[menu]
+[[menu.main]]
+  name = 'Home'
+  url = '/'
+  weight = 10
+[[menu.main]]
+  name = 'About'
+  url = '/about'
+  weight = 20
+
+
+
+[params.head]
+    author = "Felix Schaefer"
+    description = "This is the academic biographical website of F. Schaefer!"
+    keywords = ["academic", "biographical", "cyber security", "computer science", "research"]
+
+[params.navigation]
+    show_navigation = true
+
+[params.footer]
+    show_footer = true
+
+[params.social]
+    [params.social.email]
+        name = "E-Mail"
+        class = "fas fa-envelope"
+        url = "mailto:felix@oje-oje.de"
+        weight = 1
+    [params.social.github]
+        name = "GitHub"
+        class = "fab fa-github"
+        url = "https://github.com/Shepherd-ITSec"
+        weight = 2
+    [params.social.linkedin]
+        name = "LinkedIn"
+        class = "fab fa-linkedin"
+        url = "https://linkedin.com/in/felix-schäfer"
+        weight = 2
