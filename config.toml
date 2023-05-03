@@ -1,6 +1,6 @@
 baseURL = 'http://example.org/'
 languageCode = 'en-us'
-title = 'Shepherd IT Sec'
+
 theme = 'barks'
 sectionPagesMenu = "main"
 
@@ -16,8 +16,6 @@ sectionPagesMenu = "main"
   name = 'About'
   url = '/about'
   weight = 20
-
-
 
 [params.head]
     author = "Felix Schaefer"

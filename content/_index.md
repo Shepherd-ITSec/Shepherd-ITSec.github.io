@@ -3,6 +3,7 @@ title: "Landing Page"
 date: 2023-04-25T12:39:42+02:00
 draft: false
 layout: landing_page
+image: /about/profile.jpg
 ---
 
 # This page is currently under construction. Please come back later. 
