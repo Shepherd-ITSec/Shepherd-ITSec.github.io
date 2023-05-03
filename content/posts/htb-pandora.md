@@ -1,7 +1,7 @@
 ---
 title: "Hack-the-box writeup Pandora"
 date: 2023-05-03T13:49:23+02:00
-draft: true
+draft: false
 tag: ['writeup', 'hack-the-box', 'ctf']
 ---
 
