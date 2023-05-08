@@ -3,6 +3,7 @@
 
     h1 {
         margin-bottom: 0;
+        color: #163626
     }
 
     h1 a {
@@ -10,16 +11,22 @@
         margin-bottom: 0;
     }
 
+
     time {
         width: 100%;
         display: inline-block;
         text-align: center;
         font-size: small;
         margin-top: -1.5em;
-        margin-bottom: 0.5em;
+        margin-bottom: 0.0em;
         padding: 0;
     }
 
+}
+
+.title-text {
+    color: #6BC586;
+    text-align: center;
 }
 
 .post > :first-child { margin-top: 0 !important; }

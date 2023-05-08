@@ -5,7 +5,6 @@ draft: false
 tag: ['writeup', 'hack-the-box', 'ctf']
 ---
 
-# Pandora
 This is a write up for the hack-the-box challenge box `Pandora`. As there was a technical issue connecting to the device using for the attack there are no screenshots in this writeup. Moreover the commands needed to be reconstructed after the this scrip was written and the challenge ended. As i cant remember the ip-address used the used one is chosen comply ran.  
 
 ## Initial Access
