@@ -21,7 +21,7 @@ dirmap -i 10.10.33.36 -lcf
 ```
 Therby we fount an `assets` directory containing all java script files of the website. But after looking into the scripts we decided that they are not useful and search for something else. 
 We also used `sqlmap` to test the response form again, but it responded that there is no available sql injection found. 
-Therby we got stuck for quite a wile. 
+Thereby we got stuck for quite a wile. 
 
 ### UDP port scan
 After a while we got a hint to look away from the website and start looking at the udp ports. Futhermore, we started a `nmap` UDP scan.
@@ -59,22 +59,22 @@ sqlmap -u "http://10.10.33.36/pandora.php"
 ### Exploiting Pandora FMS v7.0NG.742
 Anyway at the same time, we found out that the version of `Pandora FMS v7.0NG.742` matches the exploited version of [Exploit for CVE-2020-5844 (Pandora FMS v7.0NG.742) - Remote Code Execution](https://github.com/UNICORDev/exploit-CVE-2020-5844) but a username and password are required to use it. Got stuck here again.
 
-After futher resaech we found [CVE-2021-32099 Pandora_v7.0NG.742](https://github.com/shyam0904a/Pandora_v7.0NG.742_exploit_unauthenticated) that is using a SQL injection in the `/pandora_console/include/chart_generator.php?session_id=`.
-First we tried to understand the exploited and recreated it ouwer self but after understanding it we just used it as it was quit easy. 
+After further research we found [CVE-2021-32099 Pandora_v7.0NG.742](https://github.com/shyam0904a/Pandora_v7.0NG.742_exploit_unauthenticated) that is using a SQL injection in the `/pandora_console/include/chart_generator.php?session_id=`.
+First we tried to understand the exploited and recreated it on our own but after understanding it we just used it as it was quit easy. 
 Using the dropped shell we downloaded our public `ssh-key` into the authorized keys of the machine. 
 Wow. Now we could login as matt via `ssh`. 
 Utilizing this we than sshed onto the machine as matt. **Userflag extracted!**
 
 ## Owning the system
 ### Finding and inspecting pandora_backup
-Ok now we are matt, but how to escalate privileges? Stucked on this question for too long. 
+Ok now we are matt, but how to escalate privileges? Well, we have dwelt too long on this question.
 Anyway we kinda forgot to do the obvious. Looking for the good old `SETUID`-Bit. Searching for all executables with the SETUID-Bit set returned a lot of crap and the suspicious `/usr/bin/pandora_backup`. 
-As we had no better idear for reverse engeriering this we inspeced the executable with `xxd`. Learning it the hard way.
+As we had no better idea for reverse energiering this we inspected the executable with `xxd`. Learning it the hard way.
 
 ### Exploiting sudo tar
 Anyway it reviled that the backup programme uses the tar command as root to create a backup in `/root/`.
-We deduct, it using the tar command unfiltered, hardcoded as root is a bad idear. 
-Creating ouwer own `tar` program, making it executable and inserting the current `pwd` to the $PATH environment variable did the job.
+We deduct, it using the tar command unfiltered, hardcoded as root is a bad idea. 
+Creating our own `tar` program, making it executable and inserting the current `pwd` to the $PATH environment variable did the job.
 ```bash
 echo "/bin/bash -i > tar" 
 chmod +x tar

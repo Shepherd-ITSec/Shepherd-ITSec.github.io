@@ -48,7 +48,7 @@ Nmap done: 1 IP address (1 host up) scanned in 21.06 seconds
 ```
 > *Node:* `╰─❯` is used to indicate the command used. Lines following the command are the repose.
 
-We found the following open services and ports that are interesting: `ssh:22`, `hhtp:80`, `ssl:443`. Also noteble is the fact that the `http`website redirects to `https://nunchucks.htb/`. 
+We found the following open services and ports that are interesting: `ssh:22`, `hhtp:80`, `ssl:443`. Also notable is the fact that the `http` website redirects to `https://nunchucks.htb/`. 
 
 ### Web enumeration
 Following this link directs us to a beautiful and completely random website. After a quick read we declared this website as useless. Most links are dead and the rest is only facade. 
