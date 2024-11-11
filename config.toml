@@ -1,4 +1,4 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://www.schaefer-itsec.com/'
 languageCode = 'en-us'
 
 theme = 'barks'
@@ -44,3 +44,9 @@ sectionPagesMenu = "main"
         class = "fab fa-linkedin"
         url = "https://linkedin.com/in/felix-schäfer"
         weight = 2
+
+[params.colors]
+    theme_color = "#c8c3bc"
+    background_color = "#181a1b"
+    text_color = "#c8c3bc"
+    link_color = "#df8868"

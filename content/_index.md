@@ -8,6 +8,6 @@ image: /about/profile.jpg
 
 
 ## Hello, my name is Felix Schäfer 
-I am a independent and experienced computer scientist and cybersecurity student the Rheinische Friedrich-Wilhelms-Universität Bonn, where I research on developing new reverse engineering methods to make the world a digitally safer place.
+I am an independent and experienced computer scientist, currently studying Cybersecurity and AI at Radboud University Nijmegen. During my previous studies at Rheinische Friedrich-Wilhelms-Universität Bonn, I gained expertise in cutting-edge cybersecurity concepts. Following that, I worked at Fraunhofer FKIE, focusing on developing innovative reverse engineering methods. In recent years, I have worked as a Cyber Defense Consultant for TÜV Nord and PROCYDE, specializing in 5G communication and the security of Kubernetes systems.
 
 Please feel free to get in touch! 😄
