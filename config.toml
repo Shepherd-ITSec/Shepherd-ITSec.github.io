@@ -16,6 +16,14 @@ sectionPagesMenu = "main"
   name = 'About'
   url = '/about'
   weight = 20
+[[menu.main]]
+  name = 'CV'
+  url = '/CV'
+  weight = 30
+[[menu.main]]
+  name = 'Appointments'
+  url = 'https://schaefer-itsec.com/appointments'
+  weight = 40
 
 [params.head]
     author = "Felix Schaefer"

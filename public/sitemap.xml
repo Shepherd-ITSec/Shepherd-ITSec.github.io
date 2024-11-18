@@ -2,26 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/posts/htb-nunchucks/</loc>
+    <loc>https://www.schaefer-itsec.com/posts/htb-nunchucks/</loc>
     <lastmod>2023-05-08T15:30:23+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/</loc>
+    <loc>https://www.schaefer-itsec.com/posts/</loc>
     <lastmod>2023-05-08T15:30:23+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/htb-pandora/</loc>
+    <loc>https://www.schaefer-itsec.com/posts/htb-pandora/</loc>
     <lastmod>2023-05-03T13:49:23+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/about/</loc>
+    <loc>https://www.schaefer-itsec.com/about/</loc>
     <lastmod>2023-04-25T17:59:07+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/cv/</loc>
+    <loc>https://www.schaefer-itsec.com/cv/</loc>
     <lastmod>2023-04-25T17:59:07+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
+    <loc>https://www.schaefer-itsec.com/</loc>
     <lastmod>2023-04-25T12:39:42+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>https://www.schaefer-itsec.com/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>https://www.schaefer-itsec.com/tags/</loc>
   </url>
 </urlset>
