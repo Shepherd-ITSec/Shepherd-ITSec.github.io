@@ -22,7 +22,7 @@ sectionPagesMenu = "main"
   weight = 30
 [[menu.main]]
   name = 'Appointments'
-  url = 'https://schaefer-itsec.com/appointments'
+  url = 'http://schaefer-itsec.com/appointment'
   weight = 40
 
 [params.head]
