@@ -17,11 +17,6 @@ const { t } = useI18n()
 </template>
 
 <style scoped>
-.page-title {
-  font-family: 'Bree Serif', serif;
-  margin: 0 0 10px;
-}
-
 a {
   color: var(--site-link);
 }

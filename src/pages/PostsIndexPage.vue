@@ -66,11 +66,6 @@ function excerpt(body: string): string {
 </template>
 
 <style scoped>
-.page-title {
-  font-family: 'Bree Serif', serif;
-  margin: 0 0 10px;
-}
-
 .post-title {
   font-family: 'Bree Serif', serif;
   margin: 0 0 4px;
@@ -87,12 +82,6 @@ function excerpt(body: string): string {
 
 .post-excerpt {
   margin: 0;
-}
-
-.glass {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
 }
 </style>
 

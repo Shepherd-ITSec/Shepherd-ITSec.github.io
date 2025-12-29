@@ -64,17 +64,5 @@ function formatDate(date?: string) {
   </div>
 </template>
 
-<style scoped>
-.page-title {
-  font-family: 'Bree Serif', serif;
-  margin: 0 0 10px;
-}
-
-.glass {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-}
-</style>
 
 

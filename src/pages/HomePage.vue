@@ -41,21 +41,6 @@ const { t } = useI18n()
 </template>
 
 <style scoped>
-.headline {
-  font-family: 'Bree Serif', serif;
-  margin: 0 0 10px;
-}
-
-.lead {
-  line-height: 1.6;
-}
-
-.glass {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-}
-
 .profile-card {
   width: 260px;
 }

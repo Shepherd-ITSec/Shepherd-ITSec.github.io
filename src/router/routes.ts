@@ -1,12 +1,14 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { getAllPosts } from '../site/content'
 
-const postRoutes: RouteRecordRaw[] = getAllPosts().map((post) => ({
-  path: `/posts/${post.slug}`,
+// Use a single dynamic route for all posts instead of generating static routes
+// This is more flexible and works better with direct navigation
+const postRoute: RouteRecordRaw = {
+  path: 'posts/:slug',
   component: () => import('../pages/PostPage.vue'),
-  props: { slug: post.slug },
-  meta: { title: post.title }
-}))
+  props: true, // Pass route params as props
+  meta: { title: 'Post' }
+}
 
 const routes: RouteRecordRaw[] = [
   {
@@ -23,7 +25,7 @@ const routes: RouteRecordRaw[] = [
         meta: { title: 'Appointments' }
       },
       { path: 'posts', component: () => import('../pages/PostsIndexPage.vue'), meta: { title: 'Posts' } },
-      ...postRoutes,
+      postRoute,
       { path: ':pathMatch(.*)*', component: () => import('../pages/NotFoundPage.vue'), meta: { title: '404 Page not found' } }
     ]
   }
