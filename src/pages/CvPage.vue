@@ -1,13 +1,6 @@
-<script setup lang="ts">
-import MarkdownView from '../components/MarkdownView.vue'
-import { getPageByPath } from '../site/content'
-
-const page = getPageByPath('/content/cv/index.md')
-</script>
-
 <template>
-  <h1 class="page-title">{{ page.title }}</h1>
-  <MarkdownView :source="page.body" />
+  <h1 class="page-title">CV</h1>
+  <p>Here there will be a CV.</p>
 </template>
 
 <style scoped>

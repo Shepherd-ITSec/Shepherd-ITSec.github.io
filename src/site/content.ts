@@ -1,4 +1,4 @@
-import matter from 'gray-matter'
+import { parse as parseYaml } from 'yaml'
 
 export type NavItem =
   | { kind: 'route'; label: string; to: string }
@@ -42,12 +42,6 @@ export type Post = {
   body: string
 }
 
-export type PageContent = {
-  title: string
-  body: string
-  image?: string
-}
-
 function normalizeTags(value: Frontmatter['tag'] | Frontmatter['tags']): string[] {
   if (!value) return []
   if (Array.isArray(value)) return value.filter(Boolean)
@@ -61,36 +55,63 @@ function compareDateDesc(a?: string, b?: string): number {
   return new Date(b).getTime() - new Date(a).getTime()
 }
 
-const rawMdFiles = import.meta.glob('../content/**/*.md', {
+const rawMdFiles = import.meta.glob('../content/posts/**/*.md', {
   query: '?raw',
   import: 'default',
   eager: true
 })
 
-export function getPageByPath(contentPath: string): PageContent {
-  const key = Object.keys(rawMdFiles).find((k) => k.endsWith(contentPath))
-  if (!key) {
-    return { title: 'Missing content', body: `Content file not found: ${contentPath}` }
+function parseMarkdownFile(raw: string): { frontmatter: Frontmatter; body: string } {
+  // Supports the Hugo-style frontmatter you currently use:
+  // ---
+  // title: "..."
+  // date: 2023-...
+  // draft: false
+  // tag: ['a', 'b']
+  // ---
+  const trimmed = raw.replace(/^\uFEFF/, '') // remove BOM if present
+
+  if (!trimmed.startsWith('---')) {
+    return { frontmatter: {}, body: trimmed.trim() }
   }
 
-  const raw = rawMdFiles[key] as string
-  const parsed = matter(raw)
-  const fm = parsed.data as Frontmatter
-  return {
-    title: fm.title ?? 'Untitled',
-    body: parsed.content.trim(),
-    image: fm.image
+  const lines = trimmed.split(/\r?\n/)
+  if (lines[0].trim() !== '---') {
+    return { frontmatter: {}, body: trimmed.trim() }
   }
+
+  let endIdx = -1
+  for (let i = 1; i < lines.length; i++) {
+    if (lines[i].trim() === '---') {
+      endIdx = i
+      break
+    }
+  }
+
+  if (endIdx === -1) {
+    return { frontmatter: {}, body: trimmed.trim() }
+  }
+
+  const fmRaw = lines.slice(1, endIdx).join('\n')
+  const body = lines.slice(endIdx + 1).join('\n').trim()
+
+  let frontmatter: Frontmatter = {}
+  try {
+    const parsed = (parseYaml(fmRaw) ?? {}) as Record<string, unknown>
+    frontmatter = parsed as Frontmatter
+  } catch {
+    frontmatter = {}
+  }
+
+  return { frontmatter, body }
 }
 
 export function getAllPosts(): Post[] {
-  const postEntries = Object.entries(rawMdFiles).filter(([path]) =>
-    path.includes('/content/posts/')
-  )
+  const postEntries = Object.entries(rawMdFiles)
 
   const posts = postEntries.map(([path, raw]) => {
-    const parsed = matter(raw as string)
-    const fm = parsed.data as Frontmatter
+    const parsed = parseMarkdownFile(raw as string)
+    const fm = parsed.frontmatter
     const slug = path.split('/').pop()?.replace(/\.md$/, '') ?? 'post'
     const title = fm.title ?? slug
     const draft = Boolean(fm.draft)
@@ -101,7 +122,7 @@ export function getAllPosts(): Post[] {
       date: fm.date,
       draft,
       tags,
-      body: parsed.content.trim()
+      body: parsed.body
     }
   })
 
