@@ -65,9 +65,9 @@ const expertises = [
             class="profile-img-modern"
             src="/about/profile.jpg"
             alt="Profile photo"
-            fit="cover"
+            fit="contain"
             ratio="3/4"
-            :img-style="{ objectFit: 'cover' }"
+            :img-style="{ objectFit: 'contain', objectPosition: 'center top' }"
             loading="eager"
             no-spinner
             no-transition
@@ -206,12 +206,14 @@ const expertises = [
   width: 100%;
   display: block;
   background-color: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
 }
 
 .profile-img-modern img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center top;
 }
 
 .profile-overlay {
