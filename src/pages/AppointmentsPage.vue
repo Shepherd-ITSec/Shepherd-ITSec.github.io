@@ -161,6 +161,10 @@ const features = [
   margin: 0 auto;
 }
 
+.body--light .booking-description {
+  color: rgba(0, 0, 0, 0.7);
+}
+
 .booking-features {
   text-align: left;
   max-width: 400px;
@@ -172,6 +176,10 @@ const features = [
   align-items: center;
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.9);
+}
+
+.body--light .feature-item {
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .booking-btn {
@@ -203,19 +211,7 @@ const features = [
   margin: 0;
 }
 
-.glass-modern {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  transition: all 0.3s ease;
-}
-
-.glass-modern:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
+/* glass-modern styles are now in app.scss */
 
 .booking-iframe-container {
   position: relative;

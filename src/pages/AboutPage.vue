@@ -88,19 +88,7 @@ const { t } = useI18n()
   width: 100%;
 }
 
-.glass-modern {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  transition: all 0.3s ease;
-}
-
-.glass-modern:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
+/* glass-modern styles are now in app.scss */
 
 .info-card {
   height: 100%;

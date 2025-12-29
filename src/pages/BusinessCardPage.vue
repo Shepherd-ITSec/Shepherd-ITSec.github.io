@@ -174,6 +174,10 @@ function shareCard() {
   margin: 0;
 }
 
+.body--light .card-tagline {
+  color: rgba(0, 0, 0, 0.6);
+}
+
 .card-contact {
   text-align: left;
 }
@@ -218,19 +222,7 @@ function shareCard() {
   gap: 0.5rem;
 }
 
-.glass-modern {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  transition: all 0.3s ease;
-}
-
-.glass-modern:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.15);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-}
+/* glass-modern styles are now in app.scss */
 
 @media (max-width: 600px) {
   .business-card-content {

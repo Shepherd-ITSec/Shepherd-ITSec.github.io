@@ -165,6 +165,10 @@ const expertises = [
   margin: 1rem 0;
 }
 
+.body--light .hero-subtitle {
+  color: rgba(0, 0, 0, 0.7);
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -209,6 +213,10 @@ const expertises = [
   overflow: hidden;
 }
 
+.body--light .profile-img-modern {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
 .profile-img-modern img {
   width: 100%;
   height: 100%;
@@ -224,6 +232,10 @@ const expertises = [
 .profile-info {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
+}
+
+.body--light .profile-info {
+  background: rgba(0, 0, 0, 0.03);
 }
 
 .expertise-section {
@@ -247,11 +259,21 @@ const expertises = [
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.body--light .expertise-card {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
 .expertise-card:hover {
   transform: translateY(-8px);
   background: rgba(255, 255, 255, 0.06);
   border-color: var(--q-primary);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.body--light .expertise-card:hover {
+  background: rgba(0, 0, 0, 0.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 }
 
 .expertise-icon {

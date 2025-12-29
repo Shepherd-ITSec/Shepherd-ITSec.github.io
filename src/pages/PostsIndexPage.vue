@@ -137,6 +137,10 @@ function excerpt(body: string): string {
   overflow: hidden;
 }
 
+.body--light .post-excerpt {
+  color: rgba(0, 0, 0, 0.7);
+}
+
 .post-read-btn {
   margin-top: auto;
   align-self: flex-start;

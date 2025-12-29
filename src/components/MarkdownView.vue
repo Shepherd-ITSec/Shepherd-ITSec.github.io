@@ -61,12 +61,21 @@ const rendered = computed(() => md.render(props.source ?? ''))
   border-radius: 10px;
 }
 
+.body--light .md :deep(blockquote) {
+  background: rgba(0, 0, 0, 0.03);
+}
+
 .md :deep(pre) {
   overflow: auto;
   padding: 12px 14px;
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.body--light .md :deep(pre) {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .md :deep(code) {
@@ -78,6 +87,10 @@ const rendered = computed(() => md.render(props.source ?? ''))
   border: none;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   margin: 18px 0;
+}
+
+.body--light .md :deep(hr) {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
 </style>
 
