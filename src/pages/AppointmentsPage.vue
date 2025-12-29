@@ -4,7 +4,7 @@ import { useI18n } from '../composables/useI18n'
 
 const { t } = useI18n()
 
-const appointmentUrl = 'http://schaefer-itsec.com/appointment/'
+const appointmentUrl = 'https://www.schaefer-itsec.com/appointment/'
 const useEmbed = ref(false)
 
 function openAppointments() {
@@ -142,7 +142,7 @@ const features = [
 .booking-icon {
   display: inline-block;
   padding: 1.5rem;
-  background: rgba(100, 181, 246, 0.1);
+  background: rgba(22, 143, 139, 0.15);
   border-radius: 16px;
 }
 

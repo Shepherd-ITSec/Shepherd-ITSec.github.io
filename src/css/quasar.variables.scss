@@ -1,16 +1,20 @@
 // Quasar SCSS variables (standard Quasar CLI feature)
 // This file is auto-detected by Quasar when present.
 
-$primary: #df8868;
-$secondary: #c8c3bc;
-$accent: #8bd5ca;
+// Shepherd IT Sec brand colors
+// Primary: rgb(22, 143, 139) = #168F8B (company main color)
+$primary: #168F8B;
+// Secondary: Lighter teal for accents
+$secondary: #4ECDC4;
+// Accent: Vibrant blue from logo (ram's eyes)
+$accent: #64B5F6;
 
 $dark: #181a1b;
 $dark-page: #121418;
 
 $positive: #21ba45;
 $negative: #c10015;
-$info: #31ccec;
+$info: #168F8B; // Use primary color for info
 $warning: #f2c037;
 
 $typography-font-family: 'Source Sans Pro', system-ui, -apple-system, Segoe UI, Roboto, Arial,

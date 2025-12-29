@@ -151,7 +151,7 @@ const expertises = [
   font-weight: 700;
   line-height: 1.1;
   margin: 1.5rem 0;
-  background: linear-gradient(135deg, var(--q-primary) 0%, #a5d6ff 100%);
+  background: linear-gradient(135deg, var(--q-primary) 0%, var(--q-accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -257,7 +257,7 @@ const expertises = [
 .expertise-icon {
   display: inline-flex;
   padding: 1rem;
-  background: rgba(100, 181, 246, 0.1);
+  background: rgba(22, 143, 139, 0.15);
   border-radius: 12px;
 }
 

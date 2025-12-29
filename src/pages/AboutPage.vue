@@ -50,7 +50,7 @@ const { t } = useI18n()
   display: flex;
   align-items: center;
   padding: 1rem;
-  background: rgba(var(--q-primary-rgb, 100, 181, 246), 0.1);
+  background: rgba(22, 143, 139, 0.15);
   border-radius: 12px;
   border-left: 3px solid var(--q-primary);
 }
