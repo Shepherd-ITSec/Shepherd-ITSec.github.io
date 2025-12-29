@@ -67,7 +67,19 @@ const expertises = [
             alt="Profile photo"
             fit="cover"
             ratio="3/4"
+            :img-style="{ objectFit: 'cover' }"
+            loading="eager"
+            no-spinner
+            no-transition
           >
+            <template v-slot:error>
+              <div class="absolute-full flex flex-center bg-grey-8 text-white">
+                <div class="text-center">
+                  <q-icon name="fa-solid fa-user" size="3rem" class="q-mb-sm" />
+                  <div class="text-caption">Image not found</div>
+                </div>
+              </div>
+            </template>
             <div class="absolute-full profile-overlay" />
           </q-img>
           <q-card-section class="profile-info">
@@ -190,6 +202,16 @@ const expertises = [
 
 .profile-img-modern {
   border-radius: 20px 20px 0 0;
+  min-height: 300px;
+  width: 100%;
+  display: block;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.profile-img-modern img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .profile-overlay {

@@ -32,7 +32,7 @@ function excerpt(body: string): string {
     <p>{{ t('posts.noPosts') }}</p>
   </div>
 
-  <div v-else class="posts-grid q-gutter-md">
+  <div v-else class="posts-grid">
     <q-card
       v-for="post in posts"
       :key="post.slug"
@@ -40,29 +40,27 @@ function excerpt(body: string): string {
       bordered
       class="post-card glass"
       v-ripple
+      @click="$router.push(`/posts/${post.slug}`)"
     >
-      <q-card-section>
-        <div class="row items-start justify-between q-col-gutter-md">
-          <div class="col-12 col-sm">
-            <div v-if="post.date" class="text-caption text-muted">
-              {{ t('posts.publishedOn') }} {{ formatDate(post.date) }}
-            </div>
-            <h2 class="post-title q-mt-xs q-mb-sm">
-              <router-link :to="`/posts/${post.slug}`">{{ post.title }}</router-link>
-            </h2>
-            <p class="post-excerpt q-mb-none">
-              {{ excerpt(post.body) }}
-            </p>
-          </div>
-          <div class="col-12 col-sm-auto">
-            <q-btn
-              color="primary"
-              unelevated
-              :to="`/posts/${post.slug}`"
-              :label="t('posts.continueReading')"
-            />
-          </div>
+      <q-card-section class="post-card-content">
+        <div v-if="post.date" class="text-caption text-muted q-mb-xs">
+          {{ t('posts.publishedOn') }} {{ formatDate(post.date) }}
         </div>
+        <h2 class="post-title q-mt-sm q-mb-md">
+          <router-link :to="`/posts/${post.slug}`" class="post-title-link">{{ post.title }}</router-link>
+        </h2>
+        <p class="post-excerpt q-mb-md">
+          {{ excerpt(post.body) }}
+        </p>
+        <q-btn
+          color="primary"
+          unelevated
+          :to="`/posts/${post.slug}`"
+          :label="t('posts.continueReading')"
+          icon="fa-solid fa-arrow-right"
+          class="post-read-btn"
+          @click.stop
+        />
       </q-card-section>
     </q-card>
   </div>
@@ -70,53 +68,88 @@ function excerpt(body: string): string {
 </template>
 
 <style scoped>
-.post-title {
-  font-family: 'Bree Serif', serif;
-  margin: 0 0 4px;
-}
-
-.post-title a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.post-title a:hover {
-  text-decoration: underline;
-}
-
-.post-excerpt {
-  margin: 0;
-}
-
 .posts-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 16px;
 }
 
 .posts-header {
   text-align: center;
+  margin-bottom: 3rem;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
 }
 
 .post-card {
   transition: all 0.3s ease;
   cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
 }
 
 .post-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
   border-color: var(--q-primary);
 }
 
-.posts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+.post-card-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.5rem;
 }
 
-@media (max-width: 600px) {
+.post-title {
+  font-family: 'Bree Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.post-title-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.post-title-link:hover {
+  color: var(--q-primary);
+  text-decoration: none;
+}
+
+.post-excerpt {
+  flex-grow: 1;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin: 0 0 1rem 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-read-btn {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+@media (max-width: 768px) {
   .posts-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .post-card-content {
+    padding: 1.25rem;
   }
 }
 </style>
