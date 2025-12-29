@@ -1,1 +1,10 @@
-*.lock
+node_modules/
+dist/
+.quasar/
+.vite/
+quasar.config.js.temporary.compiled.*.mjs
+
+*.log
+
+.DS_Store
+Thumbs.db
