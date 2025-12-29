@@ -23,7 +23,7 @@ export default configure(() => ({
     config: {
       dark: true
     },
-    plugins: ['Dark']
+    plugins: ['Dark', 'Loading', 'Notify']
   },
 
   animations: ['fadeIn', 'fadeOut', 'slideInUp', 'slideInDown', 'slideInLeft', 'slideInRight', 'zoomIn', 'zoomOut']

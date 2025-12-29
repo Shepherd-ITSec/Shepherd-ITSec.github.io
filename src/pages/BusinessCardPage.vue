@@ -33,9 +33,11 @@ async function copyScreenshot() {
   if (!cardElement.value) return
 
   try {
-    $q.loading.show({
-      message: t('businessCard.capturing')
-    })
+    if ($q.loading) {
+      $q.loading.show({
+        message: t('businessCard.capturing')
+      })
+    }
 
     // Get the actual DOM element from the Quasar component
     const element = cardElement.value.$el || cardElement.value
@@ -52,11 +54,15 @@ async function copyScreenshot() {
 
     canvas.toBlob(async (blob) => {
       if (!blob) {
-        $q.loading.hide()
-        $q.notify({
-          type: 'negative',
-          message: t('businessCard.screenshotError')
-        })
+        if ($q.loading) $q.loading.hide()
+        if ($q.notify) {
+          $q.notify({
+            type: 'negative',
+            message: t('businessCard.screenshotError')
+          })
+        } else {
+          alert(t('businessCard.screenshotError'))
+        }
         return
       }
 
@@ -66,12 +72,16 @@ async function copyScreenshot() {
             'image/png': blob
           })
         ])
-        $q.loading.hide()
-        $q.notify({
-          type: 'positive',
-          message: t('businessCard.screenshotCopied'),
-          icon: 'fa-solid fa-check'
-        })
+        if ($q.loading) $q.loading.hide()
+        if ($q.notify) {
+          $q.notify({
+            type: 'positive',
+            message: t('businessCard.screenshotCopied'),
+            icon: 'fa-solid fa-check'
+          })
+        } else {
+          alert(t('businessCard.screenshotCopied'))
+        }
       } catch (err) {
         // Fallback: download the image
         const url = URL.createObjectURL(blob)
@@ -82,21 +92,29 @@ async function copyScreenshot() {
         link.click()
         document.body.removeChild(link)
         URL.revokeObjectURL(url)
-        $q.loading.hide()
-        $q.notify({
-          type: 'info',
-          message: t('businessCard.screenshotDownloaded'),
-          icon: 'fa-solid fa-download'
-        })
+        if ($q.loading) $q.loading.hide()
+        if ($q.notify) {
+          $q.notify({
+            type: 'info',
+            message: t('businessCard.screenshotDownloaded'),
+            icon: 'fa-solid fa-download'
+          })
+        } else {
+          alert(t('businessCard.screenshotDownloaded'))
+        }
       }
     })
   } catch (err) {
     console.error('Error capturing screenshot:', err)
-    $q.loading.hide()
-    $q.notify({
-      type: 'negative',
-      message: t('businessCard.screenshotError')
-    })
+    if ($q.loading) $q.loading.hide()
+    if ($q.notify) {
+      $q.notify({
+        type: 'negative',
+        message: t('businessCard.screenshotError')
+      })
+    } else {
+      alert(t('businessCard.screenshotError'))
+    }
   }
 }
 
@@ -120,11 +138,15 @@ async function shareCard() {
     // Fallback: copy URL to clipboard
     try {
       await navigator.clipboard.writeText(mainPageUrl)
-      $q.notify({
-        type: 'info',
-        message: t('businessCard.urlCopied'),
-        icon: 'fa-solid fa-link'
-      })
+      if ($q.notify) {
+        $q.notify({
+          type: 'info',
+          message: t('businessCard.urlCopied'),
+          icon: 'fa-solid fa-link'
+        })
+      } else {
+        alert(t('businessCard.urlCopied'))
+      }
     } catch (err) {
       console.error('Error copying URL:', err)
     }
@@ -251,18 +273,18 @@ async function shareCard() {
 
 <style scoped>
 .business-card-page {
-  height: calc(100vh - 64px - 60px); /* Full viewport minus header (~64px) and footer (~60px) */
+  min-height: calc(100vh - 64px - 60px); /* Full viewport minus header (~64px) and footer (~60px) */
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 16px;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .business-card-container {
   width: 100%;
   max-width: 900px;
-  height: 100%;
+  min-height: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -271,7 +293,7 @@ async function shareCard() {
 .business-card {
   border-radius: 24px;
   width: 100%;
-  height: 100%;
+  min-height: fit-content;
   max-height: calc(100vh - 64px - 60px - 32px); /* Account for padding */
   display: flex;
   flex-direction: column;
@@ -281,7 +303,8 @@ async function shareCard() {
   flex: 1;
   display: flex;
   padding: 2rem !important;
-  overflow: hidden;
+  overflow: visible;
+  min-height: fit-content;
 }
 
 .card-layout {
@@ -289,26 +312,29 @@ async function shareCard() {
   grid-template-columns: 1fr auto;
   gap: 2rem;
   width: 100%;
-  height: 100%;
-  align-items: center;
+  min-height: fit-content;
+  align-items: flex-start;
 }
 
 .card-left {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   min-width: 0;
+  min-height: fit-content;
 }
 
 .card-right {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 1.5rem;
   padding-left: 2rem;
   border-left: 1px solid rgba(255, 255, 255, 0.1);
+  min-height: fit-content;
+  flex-shrink: 0;
 }
 
 .body--light .card-right {
@@ -347,10 +373,11 @@ async function shareCard() {
 }
 
 .card-contact {
-  flex: 1;
+  flex: 0 1 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  min-height: fit-content;
 }
 
 .contact-item {
@@ -425,7 +452,7 @@ async function shareCard() {
 
 @media (max-width: 768px) {
   .business-card-page {
-    height: calc(100vh - 64px - 60px);
+    min-height: calc(100vh - 64px - 60px);
     padding: 8px;
     overflow-y: auto;
   }
@@ -436,23 +463,24 @@ async function shareCard() {
 
   .business-card {
     max-height: none;
-    height: auto;
+    min-height: fit-content;
   }
 
   .business-card-content {
     padding: 1.5rem !important;
     overflow: visible;
+    min-height: fit-content;
   }
 
   .card-layout {
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    height: auto;
-    min-height: 0;
+    min-height: fit-content;
+    align-items: flex-start;
   }
 
   .card-left {
-    min-height: 0;
+    min-height: fit-content;
   }
 
   .card-right {
@@ -460,8 +488,9 @@ async function shareCard() {
     padding-top: 1.5rem;
     border-left: none;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    min-height: 0;
+    min-height: fit-content;
     flex-shrink: 0;
+    width: 100%;
   }
 
   .body--light .card-right {
