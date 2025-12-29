@@ -7,7 +7,6 @@ export type NavItem =
 export const navItems: NavItem[] = [
   { kind: 'route', label: 'Home', to: '/' },
   { kind: 'route', label: 'About', to: '/about' },
-  { kind: 'route', label: 'CV', to: '/cv' },
   { kind: 'route', label: 'Appointments', to: '/appointments' },
   { kind: 'route', label: 'Posts', to: '/posts' }
 ]
