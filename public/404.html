@@ -11,15 +11,15 @@
         var segmentCount = 0
         var repoRoot = l.pathname.split('/').slice(0, 1 + segmentCount).join('/')
         var path = l.pathname.slice(1).split('/').slice(segmentCount).join('/')
-        var search = l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : ''
+        var search = l.search ? '&q=' + encodeURIComponent(l.search.slice(1).replace(/&/g, '~and~')) : ''
         l.replace(
           l.protocol +
             '//' +
             l.hostname +
             (l.port ? ':' + l.port : '') +
             repoRoot +
-            '/?/' +
-            path +
+            '/?p=' +
+            encodeURIComponent(path) +
             search +
             l.hash
         )
