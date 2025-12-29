@@ -13,6 +13,38 @@ const qrCodeUrl = ref<string>('')
 const mainPageUrl = 'https://www.schaefer-itsec.com/'
 const cardElement = ref<any>(null)
 
+const NOTIFICATION_TIMEOUT = 2000
+
+// Helper functions
+function showNotification(type: 'positive' | 'negative' | 'info', message: string, icon?: string) {
+  if ($q.notify) {
+    $q.notify({ type, message, icon, timeout: NOTIFICATION_TIMEOUT })
+  } else {
+    alert(message)
+  }
+}
+
+function hideLoading() {
+  if ($q.loading) $q.loading.hide()
+}
+
+const contactItems = [
+  { icon: 'fa-solid fa-user', label: 'businessCard.name', value: 'Felix Schäfer' },
+  {
+    icon: 'fa-solid fa-envelope',
+    label: 'businessCard.email',
+    value: 'felix@shepherd-itsec.com',
+    href: 'mailto:felix@shepherd-itsec.com'
+  },
+  {
+    icon: 'fa-solid fa-globe',
+    label: 'businessCard.website',
+    value: 'www.schaefer-itsec.com',
+    href: 'https://www.schaefer-itsec.com',
+    external: true
+  }
+]
+
 onMounted(async () => {
   try {
     const qrDataUrl = await QRCode.toDataURL(mainPageUrl, {
@@ -34,16 +66,11 @@ async function copyScreenshot() {
 
   try {
     if ($q.loading) {
-      $q.loading.show({
-        message: t('businessCard.capturing')
-      })
+      $q.loading.show({ message: t('businessCard.capturing') })
     }
 
-    // Get the actual DOM element from the Quasar component
     const element = cardElement.value.$el || cardElement.value
-    if (!element) {
-      throw new Error('Could not find card element')
-    }
+    if (!element) throw new Error('Could not find card element')
 
     const canvas = await html2canvas(element as HTMLElement, {
       backgroundColor: null,
@@ -54,34 +81,15 @@ async function copyScreenshot() {
 
     canvas.toBlob(async (blob) => {
       if (!blob) {
-        if ($q.loading) $q.loading.hide()
-        if ($q.notify) {
-          $q.notify({
-            type: 'negative',
-            message: t('businessCard.screenshotError')
-          })
-        } else {
-          alert(t('businessCard.screenshotError'))
-        }
+        hideLoading()
+        showNotification('negative', t('businessCard.screenshotError'))
         return
       }
 
       try {
-        await navigator.clipboard.write([
-          new ClipboardItem({
-            'image/png': blob
-          })
-        ])
-        if ($q.loading) $q.loading.hide()
-        if ($q.notify) {
-          $q.notify({
-            type: 'positive',
-            message: t('businessCard.screenshotCopied'),
-            icon: 'fa-solid fa-check'
-          })
-        } else {
-          alert(t('businessCard.screenshotCopied'))
-        }
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
+        hideLoading()
+        showNotification('positive', t('businessCard.screenshotCopied'), 'fa-solid fa-check')
       } catch (err) {
         // Fallback: download the image
         const url = URL.createObjectURL(blob)
@@ -92,29 +100,14 @@ async function copyScreenshot() {
         link.click()
         document.body.removeChild(link)
         URL.revokeObjectURL(url)
-        if ($q.loading) $q.loading.hide()
-        if ($q.notify) {
-          $q.notify({
-            type: 'info',
-            message: t('businessCard.screenshotDownloaded'),
-            icon: 'fa-solid fa-download'
-          })
-        } else {
-          alert(t('businessCard.screenshotDownloaded'))
-        }
+        hideLoading()
+        showNotification('info', t('businessCard.screenshotDownloaded'), 'fa-solid fa-download')
       }
     })
   } catch (err) {
     console.error('Error capturing screenshot:', err)
-    if ($q.loading) $q.loading.hide()
-    if ($q.notify) {
-      $q.notify({
-        type: 'negative',
-        message: t('businessCard.screenshotError')
-      })
-    } else {
-      alert(t('businessCard.screenshotError'))
-    }
+    hideLoading()
+    showNotification('negative', t('businessCard.screenshotError'))
   }
 }
 
@@ -129,24 +122,14 @@ async function shareCard() {
     try {
       await navigator.share(shareData)
     } catch (err: any) {
-      // User cancelled or error occurred
       if (err.name !== 'AbortError') {
         console.error('Error sharing:', err)
       }
     }
   } else {
-    // Fallback: copy URL to clipboard
     try {
       await navigator.clipboard.writeText(mainPageUrl)
-      if ($q.notify) {
-        $q.notify({
-          type: 'info',
-          message: t('businessCard.urlCopied'),
-          icon: 'fa-solid fa-link'
-        })
-      } else {
-        alert(t('businessCard.urlCopied'))
-      }
+      showNotification('info', t('businessCard.urlCopied'), 'fa-solid fa-link')
     } catch (err) {
       console.error('Error copying URL:', err)
     }
@@ -173,34 +156,25 @@ async function shareCard() {
 
               <!-- Contact Information -->
               <div class="card-contact">
-                <div class="contact-item q-mb-sm">
-                  <q-icon name="fa-solid fa-user" size="sm" color="primary" class="q-mr-sm" />
+                <div
+                  v-for="item in contactItems"
+                  :key="item.label"
+                  class="contact-item q-mb-sm"
+                >
+                  <q-icon :name="item.icon" size="sm" color="primary" class="q-mr-sm" />
                   <div>
-                    <div class="text-caption text-muted">{{ t('businessCard.name') }}</div>
-                    <div class="text-body2">Felix Schäfer</div>
-                  </div>
-                </div>
-
-                <div class="contact-item q-mb-sm">
-                  <q-icon name="fa-solid fa-envelope" size="sm" color="primary" class="q-mr-sm" />
-                  <div>
-                    <div class="text-caption text-muted">{{ t('businessCard.email') }}</div>
+                    <div class="text-caption text-muted">{{ t(item.label) }}</div>
                     <div class="text-body2">
-                      <a href="mailto:felix@shepherd-itsec.com" class="contact-link">
-                        felix@shepherd-itsec.com
+                      <a
+                        v-if="item.href"
+                        :href="item.href"
+                        :target="item.external ? '_blank' : undefined"
+                        :rel="item.external ? 'noopener' : undefined"
+                        class="contact-link"
+                      >
+                        {{ item.value }}
                       </a>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="contact-item q-mb-sm">
-                  <q-icon name="fa-solid fa-globe" size="sm" color="primary" class="q-mr-sm" />
-                  <div>
-                    <div class="text-caption text-muted">{{ t('businessCard.website') }}</div>
-                    <div class="text-body2">
-                      <a href="https://www.schaefer-itsec.com" target="_blank" rel="noopener" class="contact-link">
-                        www.schaefer-itsec.com
-                      </a>
+                      <span v-else>{{ item.value }}</span>
                     </div>
                   </div>
                 </div>
@@ -284,7 +258,6 @@ async function shareCard() {
 .business-card-container {
   width: 100%;
   max-width: 900px;
-  min-height: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -293,18 +266,17 @@ async function shareCard() {
 .business-card {
   border-radius: 24px;
   width: 100%;
-  min-height: fit-content;
-  max-height: calc(100vh - 64px - 60px - 32px); /* Account for padding */
+  height: auto;
   display: flex;
   flex-direction: column;
 }
 
 .business-card-content {
-  flex: 1;
+  flex: 0 1 auto;
   display: flex;
   padding: 2rem !important;
   overflow: visible;
-  min-height: fit-content;
+  height: auto;
 }
 
 .card-layout {
@@ -312,7 +284,6 @@ async function shareCard() {
   grid-template-columns: 1fr auto;
   gap: 2rem;
   width: 100%;
-  min-height: fit-content;
   align-items: flex-start;
 }
 
@@ -322,7 +293,6 @@ async function shareCard() {
   flex-direction: column;
   justify-content: flex-start;
   min-width: 0;
-  min-height: fit-content;
 }
 
 .card-right {
@@ -333,7 +303,6 @@ async function shareCard() {
   gap: 1.5rem;
   padding-left: 2rem;
   border-left: 1px solid rgba(255, 255, 255, 0.1);
-  min-height: fit-content;
   flex-shrink: 0;
 }
 
@@ -377,7 +346,6 @@ async function shareCard() {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: fit-content;
 }
 
 .contact-item {
@@ -457,30 +425,19 @@ async function shareCard() {
     overflow-y: auto;
   }
 
-  .business-card-container {
-    min-height: fit-content;
-  }
-
   .business-card {
-    max-height: none;
-    min-height: fit-content;
+    height: auto;
   }
 
   .business-card-content {
     padding: 1.5rem !important;
     overflow: visible;
-    min-height: fit-content;
   }
 
   .card-layout {
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    min-height: fit-content;
     align-items: flex-start;
-  }
-
-  .card-left {
-    min-height: fit-content;
   }
 
   .card-right {
@@ -488,7 +445,6 @@ async function shareCard() {
     padding-top: 1.5rem;
     border-left: none;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    min-height: fit-content;
     flex-shrink: 0;
     width: 100%;
   }
