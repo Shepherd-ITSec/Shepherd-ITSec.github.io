@@ -72,8 +72,12 @@ async function copyScreenshot() {
     const element = cardElement.value.$el || cardElement.value
     if (!element) throw new Error('Could not find card element')
 
+    // Set background color based on dark mode
+    const isDark = $q.dark.isActive
+    const backgroundColor = isDark ? '#181a1b' : '#ffffff'
+    
     const canvas = await html2canvas(element as HTMLElement, {
-      backgroundColor: null,
+      backgroundColor: backgroundColor,
       scale: 2,
       useCORS: true,
       logging: false
@@ -221,18 +225,18 @@ async function shareCard() {
                 <q-btn
                   outline
                   color="primary"
-                  :icon="'fa-solid fa-share-nodes'"
+                  icon="fa-solid fa-share-nodes"
                   :label="t('businessCard.share')"
-                  @click="shareCard"
+                  @click.stop="shareCard"
                   size="sm"
                   class="action-btn"
                 />
                 <q-btn
                   outline
                   color="primary"
-                  :icon="'fa-solid fa-copy'"
+                  icon="fa-solid fa-copy"
                   :label="t('businessCard.copyCard')"
-                  @click="copyScreenshot"
+                  @click.stop="copyScreenshot"
                   size="sm"
                   class="action-btn"
                 />

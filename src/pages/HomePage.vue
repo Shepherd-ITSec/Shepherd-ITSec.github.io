@@ -55,6 +55,15 @@ const expertises = [
             :label="t('home.contactButton')"
             href="mailto:felix@shepherd-itsec.com"
             icon="fa-solid fa-envelope"
+            class="hero-btn q-mr-md"
+          />
+          <q-btn
+            outline
+            color="primary"
+            size="lg"
+            :label="t('home.cardButton')"
+            to="/card"
+            icon="fa-solid fa-id-card"
             class="hero-btn"
           />
         </div>

@@ -13,8 +13,9 @@ export default {
   home: {
     greeting: 'Hallo, mein Name ist Felix Schäfer',
     intro: 'Ich bin ein unabhängiger und erfahrener Informatiker und studiere derzeit Cybersicherheit und KI an der Radboud Universität Nijmegen. Während meines vorherigen Studiums an der Rheinischen Friedrich-Wilhelms-Universität Bonn habe ich Expertise in modernsten Cybersicherheitskonzepten erworben. Danach arbeitete ich am Fraunhofer FKIE und konzentrierte mich auf die Entwicklung innovativer Reverse-Engineering-Methoden. In den letzten Jahren habe ich als Cyber Defense Consultant für TÜV Nord und PROCYDE gearbeitet, spezialisiert auf 5G-Kommunikation und die Sicherheit von Kubernetes-Systemen.',
-    postsButton: 'Beiträge ansehen',
-    contactButton: 'Kontakt aufnehmen',
+        postsButton: 'Beiträge ansehen',
+        contactButton: 'Kontakt aufnehmen',
+        cardButton: 'Visitenkarte',
     subtitle: 'Cyber Defense • Reverse Engineering',
     expertiseTitle: 'Fachgebiete',
     expertise1: {
