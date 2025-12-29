@@ -92,7 +92,9 @@ export default {
     screenshotCopied: 'Screenshot in Zwischenablage kopiert!',
     screenshotDownloaded: 'Screenshot heruntergeladen!',
     screenshotError: 'Screenshot konnte nicht erstellt werden',
-    urlCopied: 'Website-URL in Zwischenablage kopiert!'
+    urlCopied: 'Website-URL in Zwischenablage kopiert!',
+    downloadVCard: 'Zu Kontakten hinzufügen',
+    vcardDownloaded: 'Kontaktkarte heruntergeladen! Fügen Sie sie zu Ihren Kontakten hinzu, um sie mit Google Wallet zu synchronisieren.'
   }
 }
 

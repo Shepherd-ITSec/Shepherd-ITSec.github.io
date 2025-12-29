@@ -92,7 +92,9 @@ export default {
     screenshotCopied: 'Screenshot copied to clipboard!',
     screenshotDownloaded: 'Screenshot downloaded!',
     screenshotError: 'Failed to capture screenshot',
-    urlCopied: 'Website URL copied to clipboard!'
+    urlCopied: 'Website URL copied to clipboard!',
+    downloadVCard: 'Save to Contacts',
+    vcardDownloaded: 'Contact card downloaded! Add it to your contacts to sync with Google Wallet.'
   }
 }
 
