@@ -19,7 +19,7 @@ export type SocialLink = {
 }
 
 export const socialLinks: SocialLink[] = [
-  { label: 'E-Mail', icon: 'fa-solid fa-envelope', href: 'mailto:felix@oje-oje.de' },
+  { label: 'E-Mail', icon: 'fa-solid fa-envelope', href: 'mailto:felix@shepherd-itsec.com' },
   { label: 'GitHub', icon: 'fa-brands fa-github', href: 'https://github.com/Shepherd-ITSec' },
   { label: 'LinkedIn', icon: 'fa-brands fa-linkedin', href: 'https://linkedin.com/in/felix-schäfer' }
 ]

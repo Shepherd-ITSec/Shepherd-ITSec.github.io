@@ -26,7 +26,7 @@ export default configure(() => ({
     plugins: ['Dark']
   },
 
-  animations: []
+  animations: ['fadeIn', 'fadeOut', 'slideInUp', 'slideInDown', 'slideInLeft', 'slideInRight', 'zoomIn', 'zoomOut']
 }))
 
 

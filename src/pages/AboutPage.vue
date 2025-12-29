@@ -5,21 +5,56 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <q-card flat bordered class="glass q-pa-lg">
-    <div class="text-overline text-muted">{{ t('nav.about') }}</div>
-    <h1 class="page-title q-mt-sm q-mb-md">{{ t('about.title') }}</h1>
+  <div class="about-container">
+    <q-card flat bordered class="glass-modern q-pa-xl">
+      <div class="about-header q-mb-lg">
+        <q-chip color="primary" text-color="white" size="md" class="q-mb-md">
+          <q-icon name="fa-solid fa-user" class="q-mr-xs" />
+          {{ t('nav.about') }}
+        </q-chip>
+        <h1 class="page-title q-mt-sm q-mb-md">{{ t('about.title') }}</h1>
+      </div>
 
-    <p class="lead">
-      {{ t('about.content') }}
-    </p>
+      <div class="about-content">
+        <p class="lead q-mb-lg">
+          {{ t('about.content') }}
+        </p>
 
-    <q-separator class="q-my-md" color="grey-8" />
+        <q-separator class="q-my-lg" color="grey-8" />
 
-    <p class="text-caption text-muted q-mb-none">
-      {{ t('about.maintenance') }}
-    </p>
-  </q-card>
+        <div class="maintenance-notice">
+          <q-icon name="fa-solid fa-tools" size="md" color="primary" class="q-mr-sm" />
+          <p class="text-body2 text-muted q-mb-none">
+            {{ t('about.maintenance') }}
+          </p>
+        </div>
+      </div>
+    </q-card>
+  </div>
 </template>
+
+<style scoped>
+.about-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.glass-modern {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.maintenance-notice {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(var(--q-primary-rgb, 100, 181, 246), 0.1);
+  border-radius: 12px;
+  border-left: 3px solid var(--q-primary);
+}
+</style>
 
 
 
