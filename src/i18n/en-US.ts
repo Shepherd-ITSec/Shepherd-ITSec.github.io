@@ -95,6 +95,13 @@ export default {
     urlCopied: 'Website URL copied to clipboard!',
     downloadVCard: 'Save to Contacts',
     vcardDownloaded: 'Contact card downloaded! Add it to your contacts to sync with Google Wallet.'
+  },
+  notFound: {
+    badge: 'Error',
+    title: '404 - Page Not Found',
+    message: 'The page you are looking for does not exist or has been moved.',
+    homeButton: 'Go Home',
+    backButton: 'Go Back'
   }
 }
 

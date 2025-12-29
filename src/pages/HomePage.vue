@@ -10,7 +10,7 @@ function openCardPopup() {
   const top = (window.screen.height - height) / 2
   
   window.open(
-    '/card/popup',
+    '/card',
     'businessCard',
     `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no`
   )

@@ -95,6 +95,13 @@ export default {
     urlCopied: 'Website-URL in Zwischenablage kopiert!',
     downloadVCard: 'Zu Kontakten hinzufügen',
     vcardDownloaded: 'Kontaktkarte heruntergeladen! Fügen Sie sie zu Ihren Kontakten hinzu, um sie mit Google Wallet zu synchronisieren.'
+  },
+  notFound: {
+    badge: 'Fehler',
+    title: '404 - Seite nicht gefunden',
+    message: 'Die gesuchte Seite existiert nicht oder wurde verschoben.',
+    homeButton: 'Zur Startseite',
+    backButton: 'Zurück'
   }
 }
 

@@ -45,3 +45,14 @@ onMounted(() => {
 }
 </style>
 
+<style>
+/* Global styles for popup layout - ensure dark mode background */
+body.body--dark {
+  background: #121418;
+}
+
+body.body--light {
+  background: #ffffff;
+}
+</style>
+
