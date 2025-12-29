@@ -3,9 +3,11 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import MarkdownView from '../components/MarkdownView.vue'
 import { getPostBySlug } from '../site/content'
+import { useI18n } from '../composables/useI18n'
 
 const props = defineProps<{ slug?: string }>()
 const route = useRoute()
+const { t, locale } = useI18n()
 
 const slug = computed(() => props.slug ?? String(route.params.slug ?? ''))
 const post = computed(() => (slug.value ? getPostBySlug(slug.value) : null))
@@ -13,21 +15,22 @@ const post = computed(() => (slug.value ? getPostBySlug(slug.value) : null))
 function formatDate(date?: string) {
   if (!date) return ''
   const d = new Date(date)
-  return d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
+  const lang = locale.value === 'de-DE' ? 'de-DE' : 'en-US'
+  return d.toLocaleDateString(lang, { year: 'numeric', month: 'long', day: 'numeric' })
 }
 </script>
 
 <template>
   <div v-if="!post">
-    <h1 class="page-title">Post not found</h1>
+    <h1 class="page-title">{{ t('posts.notFound') }}</h1>
     <p>
-      <router-link to="/posts">Back to posts</router-link>
+      <router-link to="/posts">{{ t('posts.backToPosts') }}</router-link>
     </p>
   </div>
 
   <div v-else>
     <div class="q-mb-md">
-      <q-btn flat color="primary" icon="fa-solid fa-arrow-left" label="Back" to="/posts" />
+      <q-btn flat color="primary" icon="fa-solid fa-arrow-left" :label="t('posts.backToPosts')" to="/posts" />
     </div>
 
     <q-card flat bordered class="glass">
@@ -35,7 +38,7 @@ function formatDate(date?: string) {
         <div class="text-overline text-muted">Post</div>
         <h1 class="page-title q-mt-sm q-mb-sm">{{ post.title }}</h1>
         <div v-if="post.date" class="text-caption text-muted">
-          Published on {{ formatDate(post.date) }}
+          {{ t('posts.publishedOn') }} {{ formatDate(post.date) }}
         </div>
 
         <div v-if="post.tags.length" class="q-mt-sm q-gutter-xs">

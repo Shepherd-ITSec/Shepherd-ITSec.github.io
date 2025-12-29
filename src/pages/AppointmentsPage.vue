@@ -1,11 +1,17 @@
-<template>
-  <h1 class="page-title">Appointment</h1>
+<script setup lang="ts">
+import { useI18n } from '../composables/useI18n'
 
-  <p>If you want to contact me please make an appointment.</p>
+const { t } = useI18n()
+</script>
+
+<template>
+  <h1 class="page-title">{{ t('appointments.title') }}</h1>
+
+  <p>{{ t('appointments.content') }}</p>
 
   <p class="q-mt-md">
     <a href="http://schaefer-itsec.com/appointment" target="_blank" rel="noopener">
-      Appointments here
+      {{ t('appointments.linkText') }}
     </a>
   </p>
 </template>

@@ -3,7 +3,7 @@ import { configure } from 'quasar/wrappers'
 export default configure(() => ({
   supportTS: true,
 
-  boot: [],
+  boot: ['i18n'],
 
   css: ['app.scss'],
 

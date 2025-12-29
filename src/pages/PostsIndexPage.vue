@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { getAllPosts } from '../site/content'
+import { useI18n } from '../composables/useI18n'
 
+const { t, locale } = useI18n()
 const posts = getAllPosts()
 
 function formatDate(date?: string) {
   if (!date) return ''
   const d = new Date(date)
-  return d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
+  const lang = locale.value === 'de-DE' ? 'de-DE' : 'en-US'
+  return d.toLocaleDateString(lang, { year: 'numeric', month: 'long', day: 'numeric' })
 }
 
 function excerpt(body: string): string {
@@ -19,12 +22,12 @@ function excerpt(body: string): string {
   <div class="row items-end justify-between q-col-gutter-md q-mb-md">
     <div class="col-12 col-sm">
       <div class="text-overline text-muted">Blog</div>
-      <h1 class="page-title q-mt-sm q-mb-none">Posts</h1>
+      <h1 class="page-title q-mt-sm q-mb-none">{{ t('posts.title') }}</h1>
     </div>
   </div>
 
   <div v-if="posts.length === 0">
-    <p>No posts yet.</p>
+    <p>{{ t('posts.noPosts') }}</p>
   </div>
 
   <div v-else class="q-gutter-md">
@@ -39,7 +42,7 @@ function excerpt(body: string): string {
         <div class="row items-start justify-between q-col-gutter-md">
           <div class="col-12 col-sm">
             <div v-if="post.date" class="text-caption text-muted">
-              Published on {{ formatDate(post.date) }}
+              {{ t('posts.publishedOn') }} {{ formatDate(post.date) }}
             </div>
             <h2 class="post-title q-mt-xs q-mb-sm">
               <router-link :to="`/posts/${post.slug}`">{{ post.title }}</router-link>
@@ -53,7 +56,7 @@ function excerpt(body: string): string {
               color="primary"
               unelevated
               :to="`/posts/${post.slug}`"
-              label="Read"
+              :label="t('posts.continueReading')"
             />
           </div>
         </div>

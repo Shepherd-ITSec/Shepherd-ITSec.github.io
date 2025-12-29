@@ -1,17 +1,22 @@
+<script setup lang="ts">
+import { useI18n } from '../composables/useI18n'
+
+const { t } = useI18n()
+</script>
+
 <template>
   <q-card flat bordered class="glass q-pa-lg">
-    <div class="text-overline text-muted">About</div>
-    <h1 class="page-title q-mt-sm q-mb-md">Who I am</h1>
+    <div class="text-overline text-muted">{{ t('nav.about') }}</div>
+    <h1 class="page-title q-mt-sm q-mb-md">{{ t('about.title') }}</h1>
 
     <p class="lead">
-      This is the website of Felix Schäfer. I post writeups about CTFs and other security
-      engineering related topics. If you’d like to collaborate or just chat, feel free to reach out.
+      {{ t('about.content') }}
     </p>
 
     <q-separator class="q-my-md" color="grey-8" />
 
     <p class="text-caption text-muted q-mb-none">
-      This website is still under maintenance and will be developed further in the near future.
+      {{ t('about.maintenance') }}
     </p>
   </q-card>
 </template>

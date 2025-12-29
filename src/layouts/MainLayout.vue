@@ -3,9 +3,11 @@ import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { navItems, socialLinks } from '../site/content'
+import { useI18n } from '../composables/useI18n'
 
 const $q = useQuasar()
 const route = useRoute()
+const { t, locale, setLocale } = useI18n()
 
 const drawerOpen = ref(false)
 
@@ -18,6 +20,12 @@ const internalNav = computed(() => navItems.filter((i) => i.kind === 'route'))
 const externalNav = computed(() => navItems.filter((i) => i.kind === 'external'))
 
 const activeTab = computed(() => route.path)
+
+const currentYear = computed(() => new Date().getFullYear())
+
+function toggleLocale() {
+  setLocale(locale.value === 'en-US' ? 'de-DE' : 'en-US')
+}
 </script>
 
 <template>
@@ -34,8 +42,12 @@ const activeTab = computed(() => route.path)
           @click="drawerOpen = !drawerOpen"
         />
 
+        <router-link to="/" class="app-logo-link">
+          <img src="/logo.png" alt="Shepherd IT Sec" class="app-logo" />
+        </router-link>
+
         <q-toolbar-title class="app-title">
-          <router-link to="/" class="app-title-link">Felix Schäfer</router-link>
+          <router-link to="/" class="app-title-link">{{ t('site.name') }}</router-link>
         </q-toolbar-title>
 
         <q-tabs
@@ -49,14 +61,24 @@ const activeTab = computed(() => route.path)
         >
           <q-route-tab
             v-for="item in internalNav"
-            :key="item.label"
+            :key="item.to"
             :name="item.to"
             :to="item.to"
-            :label="item.label"
+            :label="t(`nav.${item.to === '/' ? 'home' : item.to.slice(1)}`)"
           />
         </q-tabs>
 
-        <div class="row items-center q-ml-sm">
+        <div class="row items-center q-ml-sm q-gutter-xs">
+          <q-btn
+            flat
+            round
+            dense
+            :icon="locale === 'en-US' ? 'fa-solid fa-language' : 'fa-solid fa-language'"
+            :label="locale === 'en-US' ? 'EN' : 'DE'"
+            :aria-label="locale === 'en-US' ? 'Switch to German' : 'Switch to English'"
+            @click="toggleLocale"
+            class="lang-switcher"
+          />
           <q-btn
             flat
             round
@@ -81,13 +103,13 @@ const activeTab = computed(() => route.path)
 
         <q-item
           v-for="item in internalNav"
-          :key="item.label"
+          :key="item.to"
           clickable
           v-ripple
           :to="item.to"
           @click="drawerOpen = false"
         >
-          <q-item-section>{{ item.label }}</q-item-section>
+          <q-item-section>{{ t(`nav.${item.to === '/' ? 'home' : item.to.slice(1)}`) }}</q-item-section>
         </q-item>
 
         <q-separator class="q-my-sm" />
@@ -117,7 +139,7 @@ const activeTab = computed(() => route.path)
 
     <q-footer class="app-footer">
       <div class="page-inner footer-inner q-py-md row items-center justify-between q-gutter-sm">
-        <div class="text-caption text-muted">© {{ new Date().getFullYear() }} Felix Schäfer</div>
+        <div class="text-caption text-muted">{{ t('footer.copyright', { year: currentYear }) }}</div>
         <q-btn
           v-for="link in socialLinks"
           :key="link.label"
@@ -153,9 +175,26 @@ const activeTab = computed(() => route.path)
   letter-spacing: 0.2px;
 }
 
+.app-logo-link {
+  display: flex;
+  align-items: center;
+  margin-right: 12px;
+  text-decoration: none;
+}
+
+.app-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
 .app-title-link {
   color: inherit;
   text-decoration: none;
+}
+
+.lang-switcher {
+  min-width: 48px;
 }
 
 .app-drawer {
