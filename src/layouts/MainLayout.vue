@@ -138,21 +138,26 @@ function toggleLocale() {
     </q-page-container>
 
     <q-footer class="app-footer">
-      <div class="page-inner footer-inner q-py-md row items-center justify-between q-gutter-sm">
-        <div class="text-caption text-muted">{{ t('footer.copyright', { year: currentYear }) }}</div>
-        <q-btn
-          v-for="link in socialLinks"
-          :key="link.label"
-          flat
-          round
-          :icon="link.icon"
-          :href="link.href"
-          target="_blank"
-          rel="noopener"
-          :aria-label="link.label"
-          :title="link.label"
-          color="primary"
-        />
+      <div class="page-inner footer-inner q-py-md">
+        <div class="row items-center justify-between q-gutter-sm q-mb-sm">
+          <div class="text-caption text-muted">{{ t('footer.copyright', { year: currentYear }) }}</div>
+          <q-btn
+            v-for="link in socialLinks"
+            :key="link.label"
+            flat
+            round
+            :icon="link.icon"
+            :href="link.href"
+            target="_blank"
+            rel="noopener"
+            :aria-label="link.label"
+            :title="link.label"
+            color="primary"
+          />
+        </div>
+        <div class="footer-slogan text-center">
+          <p class="text-caption text-muted q-ma-none">{{ t('site.slogan') }}</p>
+        </div>
       </div>
     </q-footer>
   </q-layout>

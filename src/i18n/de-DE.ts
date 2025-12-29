@@ -1,7 +1,8 @@
 export default {
   site: {
     name: 'Shepherd IT Sec',
-    tagline: 'Cybersicherheit • KI • Forschung'
+    tagline: 'Cybersicherheit • KI • Forschung',
+    slogan: 'Ihre digitale Herde in Sicherheit'
   },
   nav: {
     home: 'Startseite',

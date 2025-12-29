@@ -179,6 +179,7 @@ function downloadVCard() {
               <div class="card-header">
                 <img src="/logo.png" alt="Shepherd IT Sec" class="card-logo" />
                 <h2 class="card-company-name">{{ t('site.name') }}</h2>
+                <p class="card-slogan">{{ t('site.slogan') }}</p>
                 <p class="card-tagline">{{ t('site.tagline') }}</p>
               </div>
 
@@ -374,6 +375,15 @@ function downloadVCard() {
   font-weight: 700;
   margin: 0.25rem 0;
   color: var(--q-primary);
+}
+
+.card-slogan {
+  font-family: 'Bree Serif', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--q-primary);
+  margin: 0.5rem 0 0.25rem 0;
 }
 
 .card-tagline {

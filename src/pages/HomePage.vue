@@ -50,6 +50,7 @@ const expertises = [
           </q-chip>
         </div>
         <h1 class="hero-title">{{ t('home.greeting') }}</h1>
+        <p class="hero-slogan q-mb-md">{{ t('site.slogan') }}</p>
         <p class="hero-subtitle">{{ t('home.intro') }}</p>
         <div class="hero-actions q-mt-xl">
           <q-btn
@@ -177,6 +178,15 @@ const expertises = [
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.hero-slogan {
+  font-family: 'Bree Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--q-primary);
+  margin: 0.5rem 0;
+  font-style: italic;
 }
 
 .hero-subtitle {

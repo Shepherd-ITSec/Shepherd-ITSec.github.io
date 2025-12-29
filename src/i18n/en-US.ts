@@ -1,7 +1,8 @@
 export default {
   site: {
     name: 'Shepherd IT Sec',
-    tagline: 'Cybersecurity • AI • Research'
+    tagline: 'Cybersecurity • AI • Research',
+    slogan: 'Protecting your digital flock'
   },
   nav: {
     home: 'Home',
