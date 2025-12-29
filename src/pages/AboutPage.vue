@@ -8,6 +8,9 @@ const { t } = useI18n()
   <div class="about-container">
     <q-card flat bordered class="glass-modern q-pa-xl">
       <div class="about-header q-mb-lg">
+        <div class="about-logo-container q-mb-md">
+          <img src="/logo.png" alt="Shepherd IT Sec" class="about-logo" />
+        </div>
         <q-chip color="primary" text-color="white" size="md" class="q-mb-md">
           <q-icon name="fa-solid fa-user" class="q-mr-xs" />
           {{ t('nav.about') }}
@@ -44,6 +47,19 @@ const { t } = useI18n()
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   transition: all 0.3s ease;
+}
+
+.about-logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.about-logo {
+  height: 120px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
 .maintenance-notice {

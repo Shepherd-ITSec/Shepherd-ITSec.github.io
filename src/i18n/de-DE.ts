@@ -38,8 +38,10 @@ export default {
   cv: {
     title: 'Lebenslauf',
     content: 'Hier wird ein Lebenslauf erscheinen',
-    description: 'Laden Sie meinen Lebenslauf herunter oder sehen Sie ihn sich unten an.',
-    download: 'Lebenslauf herunterladen'
+    description: 'Sehen Sie sich meinen Lebenslauf an oder laden Sie ihn herunter, um mehr über meine Erfahrung und Qualifikationen zu erfahren.',
+    download: 'Lebenslauf herunterladen',
+    downloadTitle: 'Herunterladen',
+    downloadDescription: 'Erhalten Sie eine Kopie meines Lebenslaufs im PDF-Format für Ihre Unterlagen.'
   },
   appointments: {
     title: 'Termin vereinbaren',

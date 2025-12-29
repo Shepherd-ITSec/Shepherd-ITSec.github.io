@@ -36,10 +36,12 @@ export default {
     maintenance: 'This website is still under maintenance and will be developed further in in the near future. 🔧'
   },
   cv: {
-    title: 'CV',
+    title: 'Curriculum Vitae',
     content: 'Here there will be a CV',
-    description: 'Download or view my Curriculum Vitae below.',
-    download: 'Download CV'
+    description: 'View or download my Curriculum Vitae to learn more about my experience and qualifications.',
+    download: 'Download CV',
+    downloadTitle: 'Download',
+    downloadDescription: 'Get a copy of my CV in PDF format for your records.'
   },
   appointments: {
     title: 'Book an Appointment',
