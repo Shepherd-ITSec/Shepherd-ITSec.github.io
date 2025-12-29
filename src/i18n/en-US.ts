@@ -82,9 +82,16 @@ export default {
     website: 'Website',
     connect: 'Connect with me',
     share: 'Share',
+    copyCard: 'Copy Card',
+    copyScreenshot: 'Copy Screenshot',
     copyLink: 'Copy Link',
-    scanQR: 'Scan to save',
-    scanHint: 'Scan this QR code to save this card'
+    scanQR: 'Scan to visit',
+    scanHint: 'Scan this QR code to visit my website',
+    capturing: 'Capturing screenshot...',
+    screenshotCopied: 'Screenshot copied to clipboard!',
+    screenshotDownloaded: 'Screenshot downloaded!',
+    screenshotError: 'Failed to capture screenshot',
+    urlCopied: 'Website URL copied to clipboard!'
   }
 }
 

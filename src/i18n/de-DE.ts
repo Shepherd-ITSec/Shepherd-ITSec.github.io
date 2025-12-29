@@ -82,9 +82,16 @@ export default {
     website: 'Website',
     connect: 'Mit mir verbinden',
     share: 'Teilen',
+    copyCard: 'Karte kopieren',
+    copyScreenshot: 'Screenshot kopieren',
     copyLink: 'Link kopieren',
-    scanQR: 'Zum Speichern scannen',
-    scanHint: 'Scannen Sie diesen QR-Code, um diese Karte zu speichern'
+    scanQR: 'Zum Besuchen scannen',
+    scanHint: 'Scannen Sie diesen QR-Code, um meine Website zu besuchen',
+    capturing: 'Screenshot wird erstellt...',
+    screenshotCopied: 'Screenshot in Zwischenablage kopiert!',
+    screenshotDownloaded: 'Screenshot heruntergeladen!',
+    screenshotError: 'Screenshot konnte nicht erstellt werden',
+    urlCopied: 'Website-URL in Zwischenablage kopiert!'
   }
 }
 

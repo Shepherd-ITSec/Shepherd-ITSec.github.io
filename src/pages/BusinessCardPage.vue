@@ -3,15 +3,19 @@ import { ref, onMounted } from 'vue'
 import { useI18n } from '../composables/useI18n'
 import { socialLinks } from '../site/content'
 import QRCode from 'qrcode'
+import html2canvas from 'html2canvas'
+import { useQuasar } from 'quasar'
 
 const { t } = useI18n()
+const $q = useQuasar()
 
 const qrCodeUrl = ref<string>('')
-const cardUrl = window.location.href
+const mainPageUrl = 'https://www.schaefer-itsec.com/'
+const cardElement = ref<any>(null)
 
 onMounted(async () => {
   try {
-    const qrDataUrl = await QRCode.toDataURL(cardUrl, {
+    const qrDataUrl = await QRCode.toDataURL(mainPageUrl, {
       width: 200,
       margin: 2,
       color: {
@@ -25,17 +29,105 @@ onMounted(async () => {
   }
 })
 
-function copyToClipboard(text: string) {
-  navigator.clipboard.writeText(text)
+async function copyScreenshot() {
+  if (!cardElement.value) return
+
+  try {
+    $q.loading.show({
+      message: t('businessCard.capturing')
+    })
+
+    // Get the actual DOM element from the Quasar component
+    const element = cardElement.value.$el || cardElement.value
+    if (!element) {
+      throw new Error('Could not find card element')
+    }
+
+    const canvas = await html2canvas(element as HTMLElement, {
+      backgroundColor: null,
+      scale: 2,
+      useCORS: true,
+      logging: false
+    })
+
+    canvas.toBlob(async (blob) => {
+      if (!blob) {
+        $q.loading.hide()
+        $q.notify({
+          type: 'negative',
+          message: t('businessCard.screenshotError')
+        })
+        return
+      }
+
+      try {
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            'image/png': blob
+          })
+        ])
+        $q.loading.hide()
+        $q.notify({
+          type: 'positive',
+          message: t('businessCard.screenshotCopied'),
+          icon: 'fa-solid fa-check'
+        })
+      } catch (err) {
+        // Fallback: download the image
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.href = url
+        link.download = 'shepherd-itsec-business-card.png'
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+        $q.loading.hide()
+        $q.notify({
+          type: 'info',
+          message: t('businessCard.screenshotDownloaded'),
+          icon: 'fa-solid fa-download'
+        })
+      }
+    })
+  } catch (err) {
+    console.error('Error capturing screenshot:', err)
+    $q.loading.hide()
+    $q.notify({
+      type: 'negative',
+      message: t('businessCard.screenshotError')
+    })
+  }
 }
 
-function shareCard() {
-  if (navigator.share) {
-    navigator.share({
-      title: 'Shepherd IT Sec - Digital Business Card',
-      text: 'Shepherd IT Sec - Cybersecurity & AI Research',
-      url: window.location.href
-    })
+async function shareCard() {
+  const shareData = {
+    title: 'Shepherd IT Sec - Digital Business Card',
+    text: 'Shepherd IT Sec - Cybersecurity & AI Research',
+    url: mainPageUrl
+  }
+
+  if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+    try {
+      await navigator.share(shareData)
+    } catch (err: any) {
+      // User cancelled or error occurred
+      if (err.name !== 'AbortError') {
+        console.error('Error sharing:', err)
+      }
+    }
+  } else {
+    // Fallback: copy URL to clipboard
+    try {
+      await navigator.clipboard.writeText(mainPageUrl)
+      $q.notify({
+        type: 'info',
+        message: t('businessCard.urlCopied'),
+        icon: 'fa-solid fa-link'
+      })
+    } catch (err) {
+      console.error('Error copying URL:', err)
+    }
   }
 }
 </script>
@@ -43,7 +135,7 @@ function shareCard() {
 <template>
   <div class="business-card-page">
     <div class="business-card-container">
-      <q-card flat bordered class="business-card glass-modern">
+      <q-card ref="cardElement" flat bordered class="business-card glass-modern">
         <q-card-section class="business-card-content">
           <div class="card-layout">
             <!-- Left Column: Contact Info -->
@@ -142,9 +234,9 @@ function shareCard() {
                 <q-btn
                   outline
                   color="primary"
-                  :icon="'fa-solid fa-link'"
-                  :label="t('businessCard.copyLink')"
-                  @click="copyToClipboard(window.location.href)"
+                  :icon="'fa-solid fa-copy'"
+                  :label="t('businessCard.copyCard')"
+                  @click="copyScreenshot"
                   size="sm"
                   class="action-btn"
                 />
@@ -229,7 +321,7 @@ function shareCard() {
 }
 
 .card-logo {
-  height: 60px;
+  height: 100px;
   width: auto;
   object-fit: contain;
   margin-bottom: 0.5rem;
@@ -335,16 +427,32 @@ function shareCard() {
   .business-card-page {
     height: calc(100vh - 64px - 60px);
     padding: 8px;
+    overflow-y: auto;
+  }
+
+  .business-card-container {
+    min-height: fit-content;
+  }
+
+  .business-card {
+    max-height: none;
+    height: auto;
   }
 
   .business-card-content {
     padding: 1.5rem !important;
+    overflow: visible;
   }
 
   .card-layout {
     grid-template-columns: 1fr;
     gap: 1.5rem;
     height: auto;
+    min-height: 0;
+  }
+
+  .card-left {
+    min-height: 0;
   }
 
   .card-right {
@@ -352,6 +460,8 @@ function shareCard() {
     padding-top: 1.5rem;
     border-left: none;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 0;
+    flex-shrink: 0;
   }
 
   .body--light .card-right {
@@ -364,7 +474,11 @@ function shareCard() {
   }
 
   .card-logo {
-    height: 50px;
+    height: 80px;
+  }
+
+  .qr-code-container {
+    padding: 0.75rem;
   }
 
   .qr-code {
@@ -374,6 +488,7 @@ function shareCard() {
 
   .card-actions {
     flex-direction: row;
+    width: 100%;
   }
 
   .action-btn {
@@ -388,6 +503,10 @@ function shareCard() {
 
   .card-layout {
     gap: 1rem;
+  }
+
+  .qr-code-container {
+    padding: 0.5rem;
   }
 
   .qr-code {
