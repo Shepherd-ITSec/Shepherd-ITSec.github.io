@@ -1,23 +1,41 @@
 <template>
-  <div class="row items-start q-col-gutter-xl">
+  <div class="row items-stretch q-col-gutter-xl">
     <div class="col-12 col-md">
-      <h2 class="headline">Hello, my name is Felix Schäfer</h2>
-      <p class="lead">
-        I am an independent and experienced computer scientist, currently studying Cybersecurity
-        and AI at Radboud University Nijmegen. During my previous studies at Rheinische
-        Friedrich-Wilhelms-Universität Bonn, I gained expertise in cutting-edge cybersecurity
-        concepts. Following that, I worked at Fraunhofer FKIE, focusing on developing innovative
-        reverse engineering methods. In recent years, I have worked as a Cyber Defense Consultant
-        for TÜV Nord and PROCYDE, specializing in 5G communication and the security of Kubernetes
-        systems.
-      </p>
-      <p class="lead">Please feel free to get in touch!</p>
+      <q-card flat bordered class="glass q-pa-lg full-height">
+        <div class="text-overline text-muted">Cybersecurity • AI • Research</div>
+        <h1 class="headline q-mt-sm q-mb-md">Hello, my name is Felix Schäfer</h1>
+
+        <p class="lead">
+          I am an independent and experienced computer scientist, currently studying Cybersecurity
+          and AI at Radboud University Nijmegen. During my previous studies at Rheinische
+          Friedrich-Wilhelms-Universität Bonn, I gained expertise in cutting-edge cybersecurity
+          concepts. Following that, I worked at Fraunhofer FKIE, focusing on developing innovative
+          reverse engineering methods. In recent years, I have worked as a Cyber Defense Consultant
+          for TÜV Nord and PROCYDE, specializing in 5G communication and the security of Kubernetes
+          systems.
+        </p>
+
+        <div class="q-mt-lg row items-center q-gutter-sm">
+          <q-btn color="primary" unelevated label="Posts" to="/posts" />
+          <q-btn flat color="primary" label="Contact" href="mailto:felix@oje-oje.de" />
+        </div>
+      </q-card>
     </div>
 
     <div class="col-12 col-md-auto">
-      <div class="profile-wrap">
-        <img class="profile-img" src="/about/profile.jpg" alt="Profile photo" />
-      </div>
+      <q-card flat bordered class="glass q-pa-lg profile-card">
+        <q-img
+          class="profile-img"
+          src="/about/profile.jpg"
+          alt="Profile photo"
+          fit="cover"
+          ratio="3/4"
+        />
+        <div class="q-mt-md">
+          <div class="text-subtitle1">Felix Schäfer</div>
+          <div class="text-caption text-muted">Cyber Defense • Reverse Engineering</div>
+        </div>
+      </q-card>
     </div>
   </div>
 </template>
@@ -32,17 +50,19 @@
   line-height: 1.6;
 }
 
-.profile-wrap {
-  display: flex;
-  justify-content: center;
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+}
+
+.profile-card {
+  width: 260px;
 }
 
 .profile-img {
-  max-width: 240px;
-  width: 100%;
-  height: auto;
+  overflow: hidden;
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 </style>
 

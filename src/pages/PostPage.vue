@@ -25,28 +25,40 @@ function formatDate(date?: string) {
     </p>
   </div>
 
-  <article v-else>
-    <h1 class="page-title">{{ post.title }}</h1>
-
-    <div v-if="post.date" class="post-date">Published on {{ formatDate(post.date) }}</div>
-
-    <div v-if="post.tags.length" class="q-mt-sm q-gutter-xs">
-      <q-chip
-        v-for="t in post.tags"
-        :key="t"
-        dense
-        outline
-        color="grey-6"
-        text-color="primary"
-      >
-        {{ t }}
-      </q-chip>
+  <div v-else>
+    <div class="q-mb-md">
+      <q-btn flat color="primary" icon="fa-solid fa-arrow-left" label="Back" to="/posts" />
     </div>
 
-    <div class="q-mt-md">
-      <MarkdownView :source="post.body" />
-    </div>
-  </article>
+    <q-card flat bordered class="glass">
+      <q-card-section>
+        <div class="text-overline text-muted">Post</div>
+        <h1 class="page-title q-mt-sm q-mb-sm">{{ post.title }}</h1>
+        <div v-if="post.date" class="text-caption text-muted">
+          Published on {{ formatDate(post.date) }}
+        </div>
+
+        <div v-if="post.tags.length" class="q-mt-sm q-gutter-xs">
+          <q-chip
+            v-for="t in post.tags"
+            :key="t"
+            dense
+            outline
+            color="grey-7"
+            text-color="primary"
+          >
+            {{ t }}
+          </q-chip>
+        </div>
+      </q-card-section>
+
+      <q-separator color="grey-8" />
+
+      <q-card-section>
+        <MarkdownView :source="post.body" />
+      </q-card-section>
+    </q-card>
+  </div>
 </template>
 
 <style scoped>
@@ -55,12 +67,10 @@ function formatDate(date?: string) {
   margin: 0 0 10px;
 }
 
-.post-date {
-  opacity: 0.85;
-}
-
-a {
-  color: var(--site-link);
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
 }
 </style>
 

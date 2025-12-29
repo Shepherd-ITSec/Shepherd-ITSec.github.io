@@ -23,7 +23,7 @@ export default configure(() => ({
     config: {
       dark: true
     },
-    plugins: []
+    plugins: ['Dark']
   },
 
   animations: []

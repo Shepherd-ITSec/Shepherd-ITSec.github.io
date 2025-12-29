@@ -1,41 +1,111 @@
 <script setup lang="ts">
+import { computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { useQuasar } from 'quasar'
 import { navItems, socialLinks } from '../site/content'
+
+const $q = useQuasar()
+const route = useRoute()
+
+const drawerOpen = ref(false)
+
+const isDark = computed({
+  get: () => $q.dark.isActive,
+  set: (v: boolean) => $q.dark.set(v)
+})
+
+const internalNav = computed(() => navItems.filter((i) => i.kind === 'route'))
+const externalNav = computed(() => navItems.filter((i) => i.kind === 'external'))
+
+const activeTab = computed(() => route.path)
 </script>
 
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header elevated class="bg-dark text-primary">
-      <q-toolbar class="site-toolbar">
-        <q-toolbar-title class="site-title">
-          <router-link to="/" class="site-title-link">Felix Schäfer</router-link>
+    <q-header elevated class="app-header">
+      <q-toolbar class="app-toolbar">
+        <q-btn
+          flat
+          round
+          dense
+          class="lt-md"
+          icon="fa-solid fa-bars"
+          aria-label="Menu"
+          @click="drawerOpen = !drawerOpen"
+        />
+
+        <q-toolbar-title class="app-title">
+          <router-link to="/" class="app-title-link">Felix Schäfer</router-link>
         </q-toolbar-title>
 
-        <div class="gt-sm row items-center q-gutter-sm">
-          <template v-for="item in navItems" :key="item.label">
-            <q-btn
-              v-if="item.kind === 'route'"
-              flat
-              dense
-              :to="item.to"
-              class="text-primary"
-            >
-              {{ item.label }}
-            </q-btn>
-            <q-btn
-              v-else
-              flat
-              dense
-              :href="item.href"
-              target="_blank"
-              rel="noopener"
-              class="text-primary"
-            >
-              {{ item.label }}
-            </q-btn>
-          </template>
+        <q-tabs
+          v-model="activeTab"
+          class="gt-sm"
+          dense
+          shrink
+          inline-label
+          indicator-color="primary"
+          active-color="primary"
+        >
+          <q-route-tab
+            v-for="item in internalNav"
+            :key="item.label"
+            :name="item.to"
+            :to="item.to"
+            :label="item.label"
+          />
+        </q-tabs>
+
+        <div class="row items-center q-ml-sm">
+          <q-btn
+            flat
+            round
+            dense
+            :icon="isDark ? 'fa-solid fa-moon' : 'fa-solid fa-sun'"
+            :aria-label="isDark ? 'Disable dark mode' : 'Enable dark mode'"
+            @click="isDark = !isDark"
+          />
         </div>
       </q-toolbar>
     </q-header>
+
+    <q-drawer
+      v-model="drawerOpen"
+      side="left"
+      overlay
+      bordered
+      class="app-drawer"
+    >
+      <q-list padding>
+        <q-item-label header class="drawer-header">Navigation</q-item-label>
+
+        <q-item
+          v-for="item in internalNav"
+          :key="item.label"
+          clickable
+          v-ripple
+          :to="item.to"
+          @click="drawerOpen = false"
+        >
+          <q-item-section>{{ item.label }}</q-item-section>
+        </q-item>
+
+        <q-separator class="q-my-sm" />
+
+        <q-item
+          v-for="item in externalNav"
+          :key="item.label"
+          clickable
+          v-ripple
+          :href="item.href"
+          target="_blank"
+          rel="noopener"
+          @click="drawerOpen = false"
+        >
+          <q-item-section>{{ item.label }}</q-item-section>
+        </q-item>
+      </q-list>
+    </q-drawer>
 
     <q-page-container>
       <q-page class="page-wrap">
@@ -45,8 +115,9 @@ import { navItems, socialLinks } from '../site/content'
       </q-page>
     </q-page-container>
 
-    <q-footer class="bg-dark text-primary">
-      <div class="page-inner footer-inner q-py-md row items-center justify-center q-gutter-sm">
+    <q-footer class="app-footer">
+      <div class="page-inner footer-inner q-py-md row items-center justify-between q-gutter-sm">
+        <div class="text-caption text-muted">© {{ new Date().getFullYear() }} Felix Schäfer</div>
         <q-btn
           v-for="link in socialLinks"
           :key="link.label"
@@ -58,7 +129,7 @@ import { navItems, socialLinks } from '../site/content'
           rel="noopener"
           :aria-label="link.label"
           :title="link.label"
-          class="text-primary"
+          color="primary"
         />
       </div>
     </q-footer>
@@ -66,20 +137,33 @@ import { navItems, socialLinks } from '../site/content'
 </template>
 
 <style scoped>
-.site-toolbar {
+.app-toolbar {
   max-width: 980px;
   margin: 0 auto;
   width: 100%;
 }
 
-.site-title {
+.app-header {
+  background: rgba(18, 20, 24, 0.85);
+  backdrop-filter: blur(10px);
+}
+
+.app-title {
   font-family: 'Bree Serif', serif;
   letter-spacing: 0.2px;
 }
 
-.site-title-link {
+.app-title-link {
   color: inherit;
   text-decoration: none;
+}
+
+.app-drawer {
+  background: rgba(18, 20, 24, 0.98);
+}
+
+.drawer-header {
+  opacity: 0.85;
 }
 
 .page-wrap {
@@ -90,6 +174,10 @@ import { navItems, socialLinks } from '../site/content'
   max-width: 980px;
   margin: 0 auto;
   width: 100%;
+}
+
+.app-footer {
+  background: rgba(18, 20, 24, 0.92);
 }
 </style>
 

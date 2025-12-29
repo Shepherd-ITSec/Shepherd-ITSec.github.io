@@ -16,30 +16,49 @@ function excerpt(body: string): string {
 </script>
 
 <template>
-  <h1 class="page-title">Posts</h1>
+  <div class="row items-end justify-between q-col-gutter-md q-mb-md">
+    <div class="col-12 col-sm">
+      <div class="text-overline text-muted">Blog</div>
+      <h1 class="page-title q-mt-sm q-mb-none">Posts</h1>
+    </div>
+  </div>
 
   <div v-if="posts.length === 0">
     <p>No posts yet.</p>
   </div>
 
-  <div v-else class="q-gutter-lg">
-    <article v-for="post in posts" :key="post.slug" class="post-card">
-      <h2 class="post-title">
-        <router-link :to="`/posts/${post.slug}`">{{ post.title }}</router-link>
-      </h2>
-
-      <div v-if="post.date" class="post-date">Published on {{ formatDate(post.date) }}</div>
-
-      <p class="post-excerpt">
-        {{ excerpt(post.body) }}
-      </p>
-
-      <div class="q-mt-sm">
-        <router-link :to="`/posts/${post.slug}`">Continue reading...</router-link>
-      </div>
-
-      <q-separator class="q-mt-lg" color="grey-8" />
-    </article>
+  <div v-else class="q-gutter-md">
+    <q-card
+      v-for="post in posts"
+      :key="post.slug"
+      flat
+      bordered
+      class="glass"
+    >
+      <q-card-section>
+        <div class="row items-start justify-between q-col-gutter-md">
+          <div class="col-12 col-sm">
+            <div v-if="post.date" class="text-caption text-muted">
+              Published on {{ formatDate(post.date) }}
+            </div>
+            <h2 class="post-title q-mt-xs q-mb-sm">
+              <router-link :to="`/posts/${post.slug}`">{{ post.title }}</router-link>
+            </h2>
+            <p class="post-excerpt q-mb-none">
+              {{ excerpt(post.body) }}
+            </p>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <q-btn
+              color="primary"
+              unelevated
+              :to="`/posts/${post.slug}`"
+              label="Read"
+            />
+          </div>
+        </div>
+      </q-card-section>
+    </q-card>
   </div>
 </template>
 
@@ -63,17 +82,14 @@ function excerpt(body: string): string {
   text-decoration: underline;
 }
 
-.post-date {
-  opacity: 0.85;
-  margin-bottom: 10px;
-}
-
 .post-excerpt {
   margin: 0;
 }
 
-a {
-  color: var(--site-link);
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
 }
 </style>
 

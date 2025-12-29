@@ -35,7 +35,8 @@ const rendered = computed(() => md.render(props.source ?? ''))
 .md :deep(h2),
 .md :deep(h3) {
   font-family: 'Bree Serif', serif;
-  margin-top: 18px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .md :deep(p),
@@ -44,20 +45,39 @@ const rendered = computed(() => md.render(props.source ?? ''))
 }
 
 .md :deep(a) {
-  color: var(--site-link);
+  color: var(--q-primary);
+  text-decoration: none;
+}
+
+.md :deep(a:hover) {
+  text-decoration: underline;
+}
+
+.md :deep(blockquote) {
+  margin: 14px 0;
+  padding: 10px 14px;
+  border-left: 3px solid var(--q-primary);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
 }
 
 .md :deep(pre) {
   overflow: auto;
   padding: 12px 14px;
   border-radius: 10px;
-  background: #121212;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .md :deep(code) {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
     'Courier New', monospace;
+}
+
+.md :deep(hr) {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  margin: 18px 0;
 }
 </style>
 
