@@ -72,6 +72,17 @@ export default {
   },
   footer: {
     copyright: '© {year} Shepherd IT Sec'
+  },
+  businessCard: {
+    badge: 'Business Card',
+    title: 'Digital Business Card',
+    subtitle: 'Save or share my contact information',
+    name: 'Name',
+    email: 'Email',
+    website: 'Website',
+    connect: 'Connect with me',
+    share: 'Share',
+    copyLink: 'Copy Link'
   }
 }
 

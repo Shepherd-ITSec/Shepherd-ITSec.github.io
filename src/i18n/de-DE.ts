@@ -72,6 +72,17 @@ export default {
   },
   footer: {
     copyright: '© {year} Shepherd IT Sec'
+  },
+  businessCard: {
+    badge: 'Visitenkarte',
+    title: 'Digitale Visitenkarte',
+    subtitle: 'Speichern oder teilen Sie meine Kontaktinformationen',
+    name: 'Name',
+    email: 'E-Mail',
+    website: 'Website',
+    connect: 'Mit mir verbinden',
+    share: 'Teilen',
+    copyLink: 'Link kopieren'
   }
 }
 
