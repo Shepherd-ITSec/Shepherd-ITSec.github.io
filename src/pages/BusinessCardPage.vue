@@ -294,6 +294,12 @@ function downloadVCard() {
   overflow-y: auto;
 }
 
+/* Popup mode - full viewport */
+.popup-page .business-card-page {
+  min-height: 100vh;
+  padding: 8px;
+}
+
 .business-card-container {
   width: 100%;
   max-width: 900px;

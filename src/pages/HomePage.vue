@@ -3,6 +3,19 @@ import { useI18n } from '../composables/useI18n'
 
 const { t } = useI18n()
 
+function openCardPopup() {
+  const width = 900
+  const height = 700
+  const left = (window.screen.width - width) / 2
+  const top = (window.screen.height - height) / 2
+  
+  window.open(
+    '/card/popup',
+    'businessCard',
+    `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no`
+  )
+}
+
 const expertises = [
   {
     icon: 'fa-solid fa-shield-halved',
@@ -62,9 +75,9 @@ const expertises = [
             color="primary"
             size="lg"
             :label="t('home.cardButton')"
-            to="/card"
             icon="fa-solid fa-id-card"
             class="hero-btn"
+            @click="openCardPopup"
           />
         </div>
       </div>

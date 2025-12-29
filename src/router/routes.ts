@@ -29,6 +29,17 @@ const routes: RouteRecordRaw[] = [
         component: () => import('../pages/BusinessCardPage.vue'),
         meta: { title: 'Business Card' }
       },
+      {
+        path: 'card/popup',
+        component: () => import('../layouts/PopupLayout.vue'),
+        children: [
+          {
+            path: '',
+            component: () => import('../pages/BusinessCardPage.vue'),
+            meta: { title: 'Business Card' }
+          }
+        ]
+      },
       { path: 'posts', component: () => import('../pages/PostsIndexPage.vue'), meta: { title: 'Posts' } },
       postRoute,
       { path: ':pathMatch(.*)*', component: () => import('../pages/NotFoundPage.vue'), meta: { title: '404 Page not found' } }
