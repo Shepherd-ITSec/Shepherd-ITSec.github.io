@@ -82,7 +82,9 @@ export default {
     website: 'Website',
     connect: 'Connect with me',
     share: 'Share',
-    copyLink: 'Copy Link'
+    copyLink: 'Copy Link',
+    scanQR: 'Scan to save',
+    scanHint: 'Scan this QR code to save this card'
   }
 }
 

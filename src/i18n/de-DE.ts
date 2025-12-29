@@ -82,7 +82,9 @@ export default {
     website: 'Website',
     connect: 'Mit mir verbinden',
     share: 'Teilen',
-    copyLink: 'Link kopieren'
+    copyLink: 'Link kopieren',
+    scanQR: 'Zum Speichern scannen',
+    scanHint: 'Scannen Sie diesen QR-Code, um diese Karte zu speichern'
   }
 }
 
