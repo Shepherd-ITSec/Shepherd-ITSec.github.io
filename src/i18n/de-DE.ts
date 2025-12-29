@@ -32,8 +32,11 @@ export default {
   },
   about: {
     title: 'Über mich',
+    subtitle: 'Erfahren Sie mehr über Shepherd IT Sec und meine Arbeit',
     content: 'Dies ist die Website von Felix Schäfer. Hier versuche ich, Blog-Beiträge über CTFs und andere sicherheitsrelevante Themen zu veröffentlichen. Ich hoffe, dass einige meiner Arbeiten interessant zu lesen oder zu erkunden sind.',
-    maintenance: 'Diese Website befindet sich noch im Aufbau und wird in naher Zukunft weiterentwickelt. 🔧'
+    maintenance: 'Diese Website befindet sich noch im Aufbau und wird in naher Zukunft weiterentwickelt. 🔧',
+    infoTitle: 'Shepherd IT Sec',
+    infoText: 'Unabhängige Cybersicherheitsberatung und Forschung. Spezialisiert auf Cyber Defense, Reverse Engineering und innovative Sicherheitslösungen.'
   },
   cv: {
     title: 'Lebenslauf',
