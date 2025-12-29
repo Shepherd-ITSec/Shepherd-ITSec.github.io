@@ -42,9 +42,20 @@ export default {
     download: 'Download CV'
   },
   appointments: {
-    title: 'Appointments',
-    content: 'If you want to contact me please make an appointment.',
-    linkText: 'Appointments here'
+    title: 'Book an Appointment',
+    subtitle: 'Schedule a consultation or meeting with me',
+    badge: 'Appointments',
+    bookingTitle: 'Schedule Your Appointment',
+    bookingDescription: 'Use our online booking system to schedule a consultation, meeting, or appointment. Select your preferred date and time, and I\'ll confirm your booking.',
+    bookButton: 'Book Now',
+    embeddedTitle: 'Booking System',
+    hoursTitle: 'Availability',
+    hoursText: 'Appointments are available based on my current schedule. Please check the booking system for available time slots.',
+    contactTitle: 'Questions?',
+    contactText: 'If you have any questions or need to discuss special requirements, feel free to reach out directly.',
+    feature1: 'Easy online booking',
+    feature2: 'Flexible scheduling',
+    feature3: 'Instant confirmation'
   },
   posts: {
     title: 'Posts',

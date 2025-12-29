@@ -42,9 +42,20 @@ export default {
     download: 'Lebenslauf herunterladen'
   },
   appointments: {
-    title: 'Termine',
-    content: 'Wenn Sie mich kontaktieren möchten, vereinbaren Sie bitte einen Termin.',
-    linkText: 'Termine hier'
+    title: 'Termin vereinbaren',
+    subtitle: 'Planen Sie eine Beratung oder ein Meeting mit mir',
+    badge: 'Termine',
+    bookingTitle: 'Ihren Termin vereinbaren',
+    bookingDescription: 'Nutzen Sie unser Online-Buchungssystem, um eine Beratung, ein Meeting oder einen Termin zu vereinbaren. Wählen Sie Ihr bevorzugtes Datum und Ihre Uhrzeit, und ich bestätige Ihre Buchung.',
+    bookButton: 'Jetzt buchen',
+    embeddedTitle: 'Buchungssystem',
+    hoursTitle: 'Verfügbarkeit',
+    hoursText: 'Termine sind basierend auf meinem aktuellen Zeitplan verfügbar. Bitte prüfen Sie das Buchungssystem auf verfügbare Zeitslots.',
+    contactTitle: 'Fragen?',
+    contactText: 'Wenn Sie Fragen haben oder besondere Anforderungen besprechen möchten, kontaktieren Sie mich gerne direkt.',
+    feature1: 'Einfache Online-Buchung',
+    feature2: 'Flexible Terminplanung',
+    feature3: 'Sofortige Bestätigung'
   },
   posts: {
     title: 'Beiträge',
