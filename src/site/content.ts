@@ -54,10 +54,12 @@ function compareDateDesc(a?: string, b?: string): number {
   return new Date(b).getTime() - new Date(a).getTime()
 }
 
-const rawMdFiles = import.meta.glob('../content/posts/**/*.md', {
-  query: '?raw',
+// Use import.meta.glob with ?raw to get raw markdown content
+// With eager: true, modules are pre-loaded
+// Note: With ?raw, Vite returns the raw string content
+const rawMdFiles = import.meta.glob('../content/posts/**/*.md?raw', {
   eager: true
-})
+}) as Record<string, { default: string }>
 
 function parseMarkdownFile(raw: string): { frontmatter: Frontmatter; body: string } {
   // Supports the Hugo-style frontmatter you currently use:
@@ -108,9 +110,10 @@ export function getAllPosts(): Post[] {
   const postEntries = Object.entries(rawMdFiles)
 
   const posts = postEntries.map(([path, module]) => {
-    // Handle both direct string imports and module.default
-    const raw = typeof module === 'string' ? module : (module as { default?: string }).default ?? ''
-    const parsed = parseMarkdownFile(raw)
+    // Extract the raw content from the module
+    // With ?raw suffix in the glob pattern, Vite wraps it in { default: string }
+    const rawContent = module?.default ?? ''
+    const parsed = parseMarkdownFile(rawContent)
     const fm = parsed.frontmatter
     const slug = path.split('/').pop()?.replace(/\.md$/, '') ?? 'post'
     const title = fm.title ?? slug

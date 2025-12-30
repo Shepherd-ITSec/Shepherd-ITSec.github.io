@@ -10,7 +10,14 @@ const route = useRoute()
 const { t, locale } = useI18n()
 
 const slug = computed(() => props.slug ?? String(route.params.slug ?? ''))
-const post = computed(() => (slug.value ? getPostBySlug(slug.value) : null))
+const post = computed(() => {
+  if (!slug.value) return null
+  const found = getPostBySlug(slug.value)
+  if (found && (!found.body || found.body.trim().length === 0)) {
+    console.warn('Post found but body is empty:', { slug: slug.value, title: found.title, bodyLength: found.body?.length ?? 0 })
+  }
+  return found
+})
 
 function formatDate(date?: string) {
   if (!date) return ''
