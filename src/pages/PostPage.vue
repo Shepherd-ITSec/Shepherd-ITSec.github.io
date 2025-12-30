@@ -58,7 +58,10 @@ function formatDate(date?: string) {
       <q-separator color="grey-8" />
 
       <q-card-section>
-        <MarkdownView :source="post.body" />
+        <div v-if="!post.body || post.body.trim().length === 0" class="text-muted">
+          <p>{{ t('posts.noContent') || 'No content available.' }}</p>
+        </div>
+        <MarkdownView v-else :source="post.body" />
       </q-card-section>
     </q-card>
   </div>

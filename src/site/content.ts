@@ -56,7 +56,6 @@ function compareDateDesc(a?: string, b?: string): number {
 
 const rawMdFiles = import.meta.glob('../content/posts/**/*.md', {
   query: '?raw',
-  import: 'default',
   eager: true
 })
 
@@ -108,8 +107,10 @@ function parseMarkdownFile(raw: string): { frontmatter: Frontmatter; body: strin
 export function getAllPosts(): Post[] {
   const postEntries = Object.entries(rawMdFiles)
 
-  const posts = postEntries.map(([path, raw]) => {
-    const parsed = parseMarkdownFile(raw as string)
+  const posts = postEntries.map(([path, module]) => {
+    // Handle both direct string imports and module.default
+    const raw = typeof module === 'string' ? module : (module as { default?: string }).default ?? ''
+    const parsed = parseMarkdownFile(raw)
     const fm = parsed.frontmatter
     const slug = path.split('/').pop()?.replace(/\.md$/, '') ?? 'post'
     const title = fm.title ?? slug
