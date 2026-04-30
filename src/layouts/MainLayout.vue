@@ -19,7 +19,13 @@ const isDark = computed({
 const internalNav = computed(() => navItems.filter((i) => i.kind === 'route'))
 const externalNav = computed(() => navItems.filter((i) => i.kind === 'external'))
 
-const activeTab = computed(() => route.path)
+const activeTab = computed(() => {
+  const match = internalNav.value
+    .filter((item) => item.to !== '/')
+    .find((item) => route.path === item.to || route.path.startsWith(`${item.to}/`))
+
+  return match?.to ?? '/'
+})
 
 const currentYear = computed(() => new Date().getFullYear())
 
@@ -51,7 +57,7 @@ function toggleLocale() {
         </q-toolbar-title>
 
         <q-tabs
-          v-model="activeTab"
+          :model-value="activeTab"
           class="gt-sm"
           dense
           shrink
@@ -64,6 +70,7 @@ function toggleLocale() {
             :key="item.to"
             :name="item.to"
             :to="item.to"
+            :exact="item.to === '/'"
             :label="t(`nav.${item.to === '/' ? 'home' : item.to.slice(1)}`)"
           />
         </q-tabs>
@@ -73,9 +80,9 @@ function toggleLocale() {
             flat
             round
             dense
-            :icon="locale === 'en-US' ? 'fa-solid fa-language' : 'fa-solid fa-language'"
-            :label="locale === 'en-US' ? 'EN' : 'DE'"
-            :aria-label="locale === 'en-US' ? 'Switch to German' : 'Switch to English'"
+            :icon="locale.value === 'en-US' ? 'fa-solid fa-language' : 'fa-solid fa-language'"
+            :label="locale.value === 'en-US' ? 'EN' : 'DE'"
+            :aria-label="locale.value === 'en-US' ? 'Switch to German' : 'Switch to English'"
             @click="toggleLocale"
             class="lang-switcher"
           />

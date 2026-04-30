@@ -40,7 +40,7 @@ function formatDate(date?: string) {
       <q-btn flat color="primary" icon="fa-solid fa-arrow-left" :label="t('posts.backToPosts')" to="/posts" />
     </div>
 
-    <q-card flat bordered class="glass">
+    <q-card flat bordered class="glass post-header-card">
       <q-card-section>
         <div class="text-overline text-muted">Post</div>
         <h1 class="page-title q-mt-sm q-mb-sm">{{ post.title }}</h1>
@@ -61,18 +61,30 @@ function formatDate(date?: string) {
           </q-chip>
         </div>
       </q-card-section>
-
-      <q-separator color="grey-8" />
-
-      <q-card-section>
-        <div v-if="!post.body || post.body.trim().length === 0" class="text-muted">
-          <p>{{ t('posts.noContent') || 'No content available.' }}</p>
-        </div>
-        <MarkdownView v-else :source="post.body" />
-      </q-card-section>
     </q-card>
+
+    <article class="glass post-body-card q-mt-md">
+      <div v-if="!post.body || post.body.trim().length === 0" class="text-muted">
+        <p>{{ t('posts.noContent') || 'No content available.' }}</p>
+      </div>
+      <MarkdownView v-else :source="post.body" />
+    </article>
   </div>
 </template>
+
+<style scoped>
+.post-header-card,
+.post-body-card {
+  width: 100%;
+  min-width: 0;
+}
+
+.post-body-card {
+  display: block;
+  overflow: visible;
+  padding: 16px;
+}
+</style>
 
 
 

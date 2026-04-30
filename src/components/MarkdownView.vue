@@ -27,33 +27,38 @@ const rendered = computed(() => md.render(props.source ?? ''))
 </script>
 
 <template>
-  <div class="md" v-html="rendered"></div>
+  <div class="markdown-content" v-html="rendered"></div>
 </template>
 
 <style scoped>
-.md :deep(h1),
-.md :deep(h2),
-.md :deep(h3) {
+.markdown-content {
+  display: block;
+  min-width: 0;
+}
+
+.markdown-content :deep(h1),
+.markdown-content :deep(h2),
+.markdown-content :deep(h3) {
   font-family: 'Bree Serif', serif;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 
-.md :deep(p),
-.md :deep(li) {
+.markdown-content :deep(p),
+.markdown-content :deep(li) {
   line-height: 1.6;
 }
 
-.md :deep(a) {
+.markdown-content :deep(a) {
   color: var(--q-primary);
   text-decoration: none;
 }
 
-.md :deep(a:hover) {
+.markdown-content :deep(a:hover) {
   text-decoration: underline;
 }
 
-.md :deep(blockquote) {
+.markdown-content :deep(blockquote) {
   margin: 14px 0;
   padding: 10px 14px;
   border-left: 3px solid var(--q-primary);
@@ -61,11 +66,11 @@ const rendered = computed(() => md.render(props.source ?? ''))
   border-radius: 10px;
 }
 
-.body--light .md :deep(blockquote) {
+.body--light .markdown-content :deep(blockquote) {
   background: rgba(0, 0, 0, 0.03);
 }
 
-.md :deep(pre) {
+.markdown-content :deep(pre) {
   overflow: auto;
   padding: 12px 14px;
   border-radius: 10px;
@@ -73,23 +78,29 @@ const rendered = computed(() => md.render(props.source ?? ''))
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.body--light .md :deep(pre) {
+.body--light .markdown-content :deep(pre) {
   background: rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
-.md :deep(code) {
+.markdown-content :deep(code) {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
     'Courier New', monospace;
 }
 
-.md :deep(hr) {
+.markdown-content :deep(iframe) {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+.markdown-content :deep(hr) {
   border: none;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   margin: 18px 0;
 }
 
-.body--light .md :deep(hr) {
+.body--light .markdown-content :deep(hr) {
   border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
 </style>

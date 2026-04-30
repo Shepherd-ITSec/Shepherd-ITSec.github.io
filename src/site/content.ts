@@ -54,12 +54,19 @@ function compareDateDesc(a?: string, b?: string): number {
   return new Date(b).getTime() - new Date(a).getTime()
 }
 
-// Use import.meta.glob with ?raw to get raw markdown content
-// With eager: true, modules are pre-loaded
-// Note: With ?raw, Vite returns the raw string content
-const rawMdFiles = import.meta.glob('../content/posts/**/*.md?raw', {
-  eager: true
-}) as Record<string, { default: string }>
+function slugFromImportPath(p: string): string {
+  const file = p.split('/').pop() ?? p
+  // Vite sometimes includes query suffixes in import keys depending on config.
+  return file.replace(/\.md(\?.*)?$/, '').replace(/\?.*$/, '')
+}
+
+// Load markdown post sources at build time.
+// Depending on Vite/Quasar versions, `?raw` may yield either a string directly
+// or a module shaped like `{ default: string }`. We normalize at read time.
+const rawMdFiles = import.meta.glob('../content/posts/**/*.md', {
+  eager: true,
+  query: '?raw'
+}) as Record<string, unknown>
 
 function parseMarkdownFile(raw: string): { frontmatter: Frontmatter; body: string } {
   // Supports the Hugo-style frontmatter you currently use:
@@ -109,13 +116,13 @@ function parseMarkdownFile(raw: string): { frontmatter: Frontmatter; body: strin
 export function getAllPosts(): Post[] {
   const postEntries = Object.entries(rawMdFiles)
 
-  const posts = postEntries.map(([path, module]) => {
-    // Extract the raw content from the module
-    // With ?raw suffix in the glob pattern, Vite wraps it in { default: string }
-    const rawContent = module?.default ?? ''
+  const posts = postEntries.map(([path, mod]) => {
+    const rawContent =
+      typeof mod === 'string' ? mod : typeof (mod as { default?: unknown })?.default === 'string' ? (mod as any).default : ''
+
     const parsed = parseMarkdownFile(rawContent)
     const fm = parsed.frontmatter
-    const slug = path.split('/').pop()?.replace(/\.md$/, '') ?? 'post'
+    const slug = slugFromImportPath(path) || 'post'
     const title = fm.title ?? slug
     const draft = Boolean(fm.draft)
     const tags = normalizeTags(fm.tag ?? fm.tags)
